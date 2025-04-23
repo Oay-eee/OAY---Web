@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 import {
+  IconBrandGithub,
   IconBrandX,
   IconExchange,
-  IconGraph,
   IconHome,
   IconLogout,
   IconUser,
@@ -15,12 +15,6 @@ export default function SkillPathLayout({ children }: { children: ReactNode }) {
       title: "Home",
       icon: <IconHome className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
       href: "/home",
-    },
-
-    {
-      title: "Progression",
-      icon: <IconGraph className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-      href: "/progression",
     },
     {
       title: "Profile",
@@ -35,6 +29,11 @@ export default function SkillPathLayout({ children }: { children: ReactNode }) {
     {
       title: "Additional tabs #2",
       icon: <IconBrandX className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+      href: "/additional-tabs",
+    },
+    {
+      title: "Additional tabs #3",
+      icon: <IconBrandGithub className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
       href: "/additional-tabs",
     },
     {
