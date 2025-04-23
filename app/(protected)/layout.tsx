@@ -1,11 +1,5 @@
 import { ReactNode } from "react";
-import {
-  IconBrandGithub,
-  IconBrandX,
-  IconExchange,
-  IconHome,
-  IconUser,
-} from "@tabler/icons-react";
+import { IconBrandGithub, IconBrandX, IconExchange, IconHome, IconUser } from "@tabler/icons-react";
 import { FloatingDock } from "@/components/ui";
 
 export default function SkillPathLayout({ children }: { children: ReactNode }) {

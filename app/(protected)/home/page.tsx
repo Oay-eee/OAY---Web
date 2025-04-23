@@ -1,8 +1,8 @@
 "use client";
 
 import { ChangeEvent, FormEvent } from "react";
-import { IconAlertSquareRoundedFilled } from "@tabler/icons-react";
-import { ProfileCard } from "@/components/common/profile-card";
+import { IconAlertSquareRoundedFilled, IconCircleArrowDownFilled } from "@tabler/icons-react";
+import { AnimatedList, ProfileCard } from "@/components/common";
 import { PlaceholdersAndVanishInput } from "@/components/ui";
 
 export default function Home() {
@@ -34,6 +34,13 @@ export default function Home() {
             onSubmit={onSubmit}
           />
           <ProfileCard />
+          <div className="mt-5">
+            <div className="flex items-center justify-between">
+              <h2 className="my-5 text-2xl font-bold text-white">Discover</h2>
+              <IconCircleArrowDownFilled className="cursor-pointer" />
+            </div>
+            <AnimatedList />
+          </div>
         </div>
         <div className="scrollbar-hide overflow-y-auto bg-zinc-600 p-5">Part 2</div>
         <div className="scrollbar-hide hidden overflow-y-auto bg-zinc-700 p-5 lg:block">Part 3</div>
