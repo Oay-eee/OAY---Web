@@ -1,6 +1,12 @@
 import Image from "next/image";
 import { mockedBlogContents } from "@/data";
-import { IconClock } from "@tabler/icons-react";
+import {
+  IconClock,
+  IconMessage2,
+  IconMoodHappy,
+  IconThumbDown,
+  IconThumbUp,
+} from "@tabler/icons-react";
 import { FollowerPointerCard } from "@/components/ui";
 
 const TitleComponent = ({ title, avatar }: { title: string; avatar: string }) => (
@@ -42,8 +48,25 @@ export const BlogCard = ({
         </div>
         <p className="text-sm font-normal text-zinc-100">{content.description}</p>
         <div className="mt-10 flex flex-row items-center justify-between">
-          <div className="relative z-10 block rounded-xl bg-black px-6 py-2 text-xs font-bold text-white">
-            Read More
+          <div className="flex gap-10">
+            <div className="flex gap-2">
+              <IconThumbUp className="cursor-pointer" stroke={2} />
+              <span>19</span>
+            </div>
+            <div className="flex gap-2">
+              <IconThumbDown className="cursor-pointer" stroke={2} />
+              <span>45</span>
+            </div>
+            <div className="flex gap-2">
+              <IconMoodHappy className="cursor-pointer" stroke={2} />
+              <span>79</span>
+            </div>
+          </div>
+          <div>
+            <div className="flex gap-2">
+              <IconMessage2 className="cursor-pointer" stroke={2} />
+              <span>45</span>
+            </div>
           </div>
         </div>
       </div>

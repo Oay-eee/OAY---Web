@@ -50,7 +50,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="scrollbar-hide space-y-5 overflow-y-auto p-5">
+        <div className="scrollbar-hide space-y-10 overflow-y-auto p-5 pb-30">
           {mockedBlogContents.map((content, index) => (
             <BlogCard key={index} content={content} avatar={currentUser.image} />
           ))}
