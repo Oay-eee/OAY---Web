@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { IconBrandGithub, IconBrandX, IconExchange, IconHome, IconUser } from "@tabler/icons-react";
-import { FloatingDock } from "@/components/ui";
+import { BackgroundBeams, FloatingDock } from "@/components/ui";
 
 export default function SkillPathLayout({ children }: { children: ReactNode }) {
   const links = [
@@ -35,6 +35,7 @@ export default function SkillPathLayout({ children }: { children: ReactNode }) {
     <main className="relative flex h-screen w-full flex-col items-center justify-center gap-5">
       {children}
       <FloatingDock items={links} />
+      <BackgroundBeams className="z-[-999]" />
     </main>
   );
 }
