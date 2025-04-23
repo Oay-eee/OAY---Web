@@ -7,9 +7,9 @@ import { RegisterSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { Social } from "@/components/common/social";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-import { Social } from "@/components/social";
 import {
   Button,
   Form,

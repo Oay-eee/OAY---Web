@@ -12,7 +12,7 @@ export const Social = () => {
 
   const onClick = async (provider: "google" | "github") => {
     await signIn(provider, {
-      callbackUrl: callbackUrl || DEFAULT_LOGIN_REDIRECT,
+      redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
     });
   };
   return (

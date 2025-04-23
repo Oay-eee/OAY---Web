@@ -36,11 +36,6 @@ export default function SkillPathLayout({ children }: { children: ReactNode }) {
       icon: <IconBrandGithub className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
       href: "/additional-tabs",
     },
-    {
-      title: "Logout",
-      icon: <IconLogout className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-      href: "#",
-    },
   ];
 
   return (

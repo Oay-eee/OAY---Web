@@ -6,9 +6,9 @@ import { useSearchParams } from "next/navigation";
 import { newVerificationAction } from "@/actions";
 import { useTheme } from "next-themes";
 import { BeatLoader } from "react-spinners";
+import { Social } from "@/components/common/social";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-import { Social } from "@/components/social";
 
 export default function NewVerification() {
   const [error, setError] = useState<string | undefined>();

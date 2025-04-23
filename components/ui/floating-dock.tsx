@@ -2,7 +2,7 @@
 
 import { ReactNode, useRef, useState } from "react";
 import Link from "next/link";
-import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
+import { IconLayoutNavbarCollapse, IconLogout } from "@tabler/icons-react";
 import {
   AnimatePresence,
   motion,
@@ -11,6 +11,7 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
+import { LogoutButton } from "@/components/common/logout-button";
 import { cn } from "@/lib/utils";
 
 export const FloatingDock = ({
@@ -105,6 +106,15 @@ const FloatingDockDesktop = ({
       {items.map((item) => (
         <IconContainer mouseX={mouseX} key={item.title} {...item} />
       ))}
+      <LogoutButton>
+        <IconContainer
+          mouseX={mouseX}
+          key="logout"
+          icon={<IconLogout className="h-full w-full text-neutral-500 dark:text-neutral-300" />}
+          href=""
+          title="Logout"
+        />
+      </LogoutButton>
     </motion.div>
   );
 };
