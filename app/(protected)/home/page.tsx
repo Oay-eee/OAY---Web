@@ -1,11 +1,17 @@
 "use client";
 
 import { ChangeEvent, FormEvent } from "react";
+import { mockedBlogContents } from "@/data";
+import { useCurrentUser } from "@/hooks";
 import { IconAlertSquareRoundedFilled, IconCircleArrowDownFilled } from "@tabler/icons-react";
-import { AnimatedList, ProfileCard } from "@/components/common";
-import { PlaceholdersAndVanishInput } from "@/components/ui";
+import { AnimatedList, BlogCard, ProfileCard } from "@/components/common";
+import { FollowerPointerCard, PlaceholdersAndVanishInput } from "@/components/ui";
 
 export default function Home() {
+  const currentUser = useCurrentUser();
+
+  if (!currentUser?.image) return <h1>No image available</h1>;
+
   const placeholders = [
     "Who is Fiantso Harena?",
     "What is happening in your neighborhood?",
@@ -15,6 +21,7 @@ export default function Home() {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
   };
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("submitted");
@@ -42,7 +49,13 @@ export default function Home() {
             <AnimatedList />
           </div>
         </div>
-        <div className="scrollbar-hide overflow-y-auto bg-zinc-600 p-5">Part 2</div>
+
+        <div className="scrollbar-hide space-y-5 overflow-y-auto p-5">
+          {mockedBlogContents.map((content, index) => (
+            <BlogCard key={index} content={content} avatar={currentUser.image} />
+          ))}
+        </div>
+
         <div className="scrollbar-hide hidden overflow-y-auto bg-zinc-700 p-5 lg:block">Part 3</div>
       </div>
     </main>

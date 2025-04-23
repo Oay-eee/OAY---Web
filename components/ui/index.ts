@@ -6,3 +6,4 @@ export * from "./text-generate-effect";
 export * from "./floating-dock";
 export * from "./placeholders-and-vanish-input";
 export * from "./background-beams";
+export * from "./following-pointer-card";
