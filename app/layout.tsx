@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
+import { auth } from "@/auth";
+import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
 
 const poppins = Poppins({
@@ -15,18 +17,22 @@ export const metadata: Metadata = {
   description: "OAY! Stay up to date with everything happening in society with OAY",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
+  const session = await auth();
+
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.className} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="dark">
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
+    <SessionProvider session={session}>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${poppins.className} antialiased`}>
+          <ThemeProvider attribute="class" defaultTheme="dark">
+            {children}
+          </ThemeProvider>
+        </body>
+      </html>
+    </SessionProvider>
   );
 }

@@ -1,9 +1,14 @@
-import { Button } from "@/components/ui";
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  return (
-    <main className="flex h-screen w-full items-center justify-center bg-slate-950">
-      <Button>Hello from shadcn</Button>
-    </main>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push("/auth/login");
+  }, [router]);
+
+  return null;
 }
