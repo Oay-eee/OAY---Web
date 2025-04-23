@@ -15,9 +15,12 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "commitlint": "commitlint --edit",
-    "prepare": "husky"
+    "prepare": "husky",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio"
   },
   "dependencies": {
+    "@prisma/client": "^6.6.0",
     "@radix-ui/react-slot": "^1.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -44,6 +47,7 @@
     "eslint-config-next": "15.3.0",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "prisma": "^6.6.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

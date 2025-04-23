@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Editor stuffs
 .idea
+
+# Prisma
+generated/prisma/
