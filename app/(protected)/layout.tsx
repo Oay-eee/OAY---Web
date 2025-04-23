@@ -4,7 +4,6 @@ import {
   IconBrandX,
   IconExchange,
   IconHome,
-  IconLogout,
   IconUser,
 } from "@tabler/icons-react";
 import { FloatingDock } from "@/components/ui";
