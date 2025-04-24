@@ -7,3 +7,4 @@ export * from "./floating-dock";
 export * from "./placeholders-and-vanish-input";
 export * from "./background-beams";
 export * from "./following-pointer-card";
+export * from "./expandable-card";

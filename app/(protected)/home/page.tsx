@@ -1,11 +1,16 @@
 "use client";
 
 import { ChangeEvent, FormEvent } from "react";
+import Link from "next/link";
 import { mockedBlogContents } from "@/data";
 import { useCurrentUser } from "@/hooks";
-import { IconAlertSquareRoundedFilled, IconCircleArrowDownFilled } from "@tabler/icons-react";
+import {
+  IconAlertSquareRoundedFilled,
+  IconCheck,
+  IconCircleArrowDownFilled,
+} from "@tabler/icons-react";
 import { AnimatedList, BlogCard, ProfileCard } from "@/components/common";
-import { FollowerPointerCard, PlaceholdersAndVanishInput } from "@/components/ui";
+import { ExpandableCard, PlaceholdersAndVanishInput } from "@/components/ui";
 
 export default function Home() {
   const currentUser = useCurrentUser();
@@ -56,7 +61,17 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="scrollbar-hide hidden overflow-y-auto bg-zinc-700 p-5 lg:block">Part 3</div>
+        <div className="scrollbar-hide hidden overflow-y-auto lg:block">
+          <div className="mt-5">
+            <div className="flex items-center justify-between">
+              <h2 className="my-5 text-2xl font-bold text-white">Suggested friends</h2>
+              <Link href="#" className="text-sm underline">
+                View more
+              </Link>
+            </div>
+            <ExpandableCard />
+          </div>
+        </div>
       </div>
     </main>
   );
