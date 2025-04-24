@@ -1,9 +1,23 @@
-import { IconBrandOffice, IconGenderMale, IconMailbox, IconPointFilled } from "@tabler/icons-react";
+import { ReactNode } from "react";
+import {
+  IconBrandOffice,
+  IconEdit,
+  IconGenderMale,
+  IconMailbox,
+  IconPointFilled,
+} from "@tabler/icons-react";
+import { Badge, Button } from "@/components/ui";
 
 export function SidebarUserInfo() {
   return (
     <div className="relative mx-auto mt-10 flex w-[400px] flex-col rounded-[20px] bg-zinc-800 p-4 text-white">
-      <h2 className="my-5 text-2xl font-bold">User information&#39;s</h2>
+      <div className="flex flex-col items-center">
+        <h2 className="my-5 text-center text-2xl font-bold">User information&#39;s</h2>
+        <Button className="w-max cursor-pointer rounded-full">
+          <IconEdit />
+          Edit
+        </Button>
+      </div>
       <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
 
       <UserInfoRow icon={<IconBrandOffice />} label="Role(s)" value="Admin" />
@@ -14,21 +28,15 @@ export function SidebarUserInfo() {
   );
 }
 
-function UserInfoRow({
-  icon,
-  label,
-  value,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-}) {
+function UserInfoRow({ icon, label, value }: { icon: ReactNode; label: string; value: string }) {
   return (
     <div className="mb-5 flex items-center justify-between">
       <span className="flex items-center gap-2">
         {icon} {label}
       </span>
-      <span className="text-sm">{value}</span>
+      <Badge className="bg-chart-2/50 border-chart-2 border font-semibold text-white">
+        {value}
+      </Badge>
     </div>
   );
 }

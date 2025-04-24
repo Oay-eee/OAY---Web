@@ -2,8 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Cover } from "@/assets/images";
 import { IconBellFilled, IconBrandMessengerFilled } from "@tabler/icons-react";
+import { User } from "next-auth";
 
-export function SidebarProfile({ user }: { user: any }) {
+export function SidebarProfile({ user }: { user: User }) {
+  if (!user.image) return <h1>No image available</h1>;
+
   return (
     <div className="relative mx-auto flex w-[400px] flex-col items-center rounded-[20px] bg-zinc-800 p-4 text-white">
       <div className="relative flex h-32 w-full justify-center rounded-xl bg-cover">
@@ -29,14 +32,14 @@ export function SidebarProfile({ user }: { user: any }) {
         <p className="text-base text-zinc-400">@fiantsoharena</p>
       </div>
       <div className="mt-6 mb-3 flex gap-14">
-        <Link href="/messages" className="flex flex-col items-center">
+        <Link href="#" className="flex flex-col items-center">
           <IconBrandMessengerFilled />
         </Link>
         <div className="flex flex-col items-center">
           <p className="text-2xl font-bold">9.7K</p>
           <p className="text-sm text-zinc-400">Friend(s)</p>
         </div>
-        <Link href="/notifications" className="flex flex-col items-center">
+        <Link href="#" className="flex flex-col items-center">
           <IconBellFilled />
         </Link>
       </div>
