@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { IconBrandGithub, IconBrandX, IconHome, IconPlus, IconUser } from "@tabler/icons-react";
 import { BackgroundBeams, FloatingDock } from "@/components/common";
 
-export default function SkillPathLayout({ children }: { children: ReactNode }) {
+export default function OayLayout({ children }: { children: ReactNode }) {
   const links = [
     {
       title: "Home",

@@ -35,7 +35,7 @@ export const BlogCard = ({
         <Image
           src={content.image}
           alt="thumbnail"
-          className="h-full transform object-cover transition duration-200 group-hover:scale-95 group-hover:rounded-2xl"
+          className="h-full w-full transform object-cover transition duration-200 group-hover:scale-95 group-hover:rounded-2xl"
         />
       </div>
       <div className="p-4">
