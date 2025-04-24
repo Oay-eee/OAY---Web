@@ -18,10 +18,7 @@ export const ProfileCard = () => {
   if (!currentUser?.image) return <h1>No image available</h1>;
 
   return (
-    <section
-      onClick={handleNavigation}
-      className="mt-5 flex cursor-pointer flex-col items-center justify-center"
-    >
+    <section className="mt-5 flex cursor-pointer flex-col items-center justify-center">
       <div className="relative mx-auto flex w-[400px] flex-col items-center rounded-[20px] bg-clip-border p-4 text-white shadow-none dark:bg-zinc-800">
         <div className="relative flex h-32 w-full justify-center rounded-xl bg-cover">
           <Image
@@ -42,7 +39,12 @@ export const ProfileCard = () => {
           </div>
         </div>
         <div className="mt-16 flex flex-col items-center">
-          <h4 className="text-xl font-bold text-white capitalize">{currentUser?.name}</h4>
+          <h4
+            className="text-xl font-bold text-white capitalize hover:underline"
+            onClick={handleNavigation}
+          >
+            {currentUser?.name}
+          </h4>
           <p className="text-base font-normal text-zinc-400">@fiantsoharena</p>
         </div>
         <div className="mt-6 mb-3 flex gap-14 md:!gap-14">
