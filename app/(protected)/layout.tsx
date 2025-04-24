@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { IconBrandGithub, IconBrandX, IconExchange, IconHome, IconUser } from "@tabler/icons-react";
+import { IconBrandGithub, IconBrandX, IconHome, IconPlus, IconUser } from "@tabler/icons-react";
 import { BackgroundBeams, FloatingDock } from "@/components/ui";
 
 export default function SkillPathLayout({ children }: { children: ReactNode }) {
@@ -15,9 +15,9 @@ export default function SkillPathLayout({ children }: { children: ReactNode }) {
       href: "/profile",
     },
     {
-      title: "Additional tabs #1",
-      icon: <IconExchange className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-      href: "/additional-tabs",
+      title: "Create a report",
+      icon: <IconPlus className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+      href: "/create-report",
     },
     {
       title: "Additional tabs #2",
