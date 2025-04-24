@@ -4,13 +4,14 @@ import { ChangeEvent, FormEvent } from "react";
 import Link from "next/link";
 import { mockedBlogContents } from "@/data";
 import { useCurrentUser } from "@/hooks";
+import { IconAlertSquareRoundedFilled, IconCircleArrowDownFilled } from "@tabler/icons-react";
 import {
-  IconAlertSquareRoundedFilled,
-  IconCheck,
-  IconCircleArrowDownFilled,
-} from "@tabler/icons-react";
-import { AnimatedList, BlogCard, ProfileCard } from "@/components/common";
-import { ExpandableCard, PlaceholdersAndVanishInput } from "@/components/ui";
+  AnimatedList,
+  BlogCard,
+  ExpandableCard,
+  PlaceholdersAndVanishInput,
+  ProfileCard,
+} from "@/components/common";
 
 export default function Home() {
   const currentUser = useCurrentUser();

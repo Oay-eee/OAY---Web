@@ -7,7 +7,7 @@ import {
   IconThumbDown,
   IconThumbUp,
 } from "@tabler/icons-react";
-import { FollowerPointerCard } from "@/components/ui";
+import { FollowerPointerCard } from "@/components/common";
 
 const TitleComponent = ({ title, avatar }: { title: string; avatar: string }) => (
   <div className="flex items-center space-x-2">
