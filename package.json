@@ -1,6 +1,6 @@
 {
   "name": "oay",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "private": false,
   "author": {
     "name": "Fiantso Harena",
@@ -16,9 +16,11 @@
     "format:check": "prettier --check .",
     "commitlint": "commitlint --edit",
     "prepare": "husky",
+    "prisma:generate": "prisma generate",
     "prisma:push": "prisma db push",
     "prisma:migrate": "prisma migrate",
-    "prisma:studio": "prisma studio"
+    "prisma:studio": "prisma studio",
+    "version": "npx conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.8.0",
