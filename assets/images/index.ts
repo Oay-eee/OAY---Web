@@ -1,4 +1,4 @@
 import Cover from "./cover.png";
-import SkillPath from "./skillpath.jpeg";
+import Madagascar from "./madagascar.jpg";
 
-export { Cover, SkillPath };
+export { Cover, Madagascar };
