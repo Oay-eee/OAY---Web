@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { ReactNode } from "react";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
 import ClientLayout from "@/app/client-layout";
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   description: "OAY! Stay up to date with everything happening in society with OAY",
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
   const session = await auth();
 
   return (

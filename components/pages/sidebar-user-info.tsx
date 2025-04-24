@@ -6,6 +6,7 @@ import {
   IconMailbox,
   IconPointFilled,
 } from "@tabler/icons-react";
+import { toast } from "sonner";
 import { Badge, Button } from "@/components/ui";
 
 export function SidebarUserInfo() {
@@ -13,7 +14,10 @@ export function SidebarUserInfo() {
     <div className="relative mx-auto mt-10 flex w-[400px] flex-col rounded-[20px] bg-zinc-800 p-4 text-white">
       <div className="flex flex-col items-center">
         <h2 className="my-5 text-center text-2xl font-bold">User information&#39;s</h2>
-        <Button className="w-max cursor-pointer rounded-full">
+        <Button
+          className="w-max cursor-pointer rounded-full"
+          onClick={() => toast.info("This functionality is under development.")}
+        >
           <IconEdit />
           Edit
         </Button>

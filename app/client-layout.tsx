@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { ThemeProvider } from "next-themes";
 import { RingLoader } from "react-spinners";
+import { Toaster } from "@/components/ui";
 
 export default function ClientLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -36,6 +37,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
         )}
       </AnimatePresence>
       {children}
+      <Toaster position="top-right" />
     </ThemeProvider>
   );
 }
