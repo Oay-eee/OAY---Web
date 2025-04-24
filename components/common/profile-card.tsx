@@ -43,7 +43,7 @@ export const ProfileCard = () => {
             className="text-xl font-bold text-white capitalize hover:underline"
             onClick={handleNavigation}
           >
-            {currentUser?.name}
+            {currentUser?.name} 🇲🇬
           </h4>
           <p className="text-base font-normal text-zinc-400">@fiantsoharena</p>
         </div>

@@ -9,6 +9,7 @@ import { LoginSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { TextGenerateEffect } from "@/components/common";
 import { Social } from "@/components/common/social";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
@@ -21,7 +22,6 @@ import {
   FormLabel,
   FormMessage,
   Input,
-  TextGenerateEffect,
 } from "@/components/ui";
 
 export default function Login() {

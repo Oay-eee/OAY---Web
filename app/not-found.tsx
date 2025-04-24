@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { TextGenerateEffect } from "@/components/ui";
+import { TextGenerateEffect } from "@/components/common";
 
 export default function NotFound() {
   return (
