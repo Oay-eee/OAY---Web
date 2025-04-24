@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { ReactNode } from "react";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
-import { ThemeProvider } from "next-themes";
+import ClientLayout from "@/app/client-layout";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -17,20 +16,14 @@ export const metadata: Metadata = {
   description: "OAY! Stay up to date with everything happening in society with OAY",
 };
 
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: ReactNode;
-}>) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const session = await auth();
 
   return (
     <SessionProvider session={session}>
       <html lang="en" suppressHydrationWarning>
         <body className={`${poppins.className} antialiased`}>
-          <ThemeProvider attribute="class" defaultTheme="dark">
-            {children}
-          </ThemeProvider>
+          <ClientLayout>{children}</ClientLayout>
         </body>
       </html>
     </SessionProvider>
