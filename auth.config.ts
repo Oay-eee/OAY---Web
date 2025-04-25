@@ -9,8 +9,17 @@ import { LoginSchema } from "./schemas";
 export default {
   providers: [
     Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      authorization: {
+        url: "https://accounts.google.com/o/oauth2/v2/auth",
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+          scope: "openid email profile",
+        },
+      },
     }),
     Github({
       clientId: process.env.GITHUB_CLIENT_ID,
