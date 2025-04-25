@@ -1,6 +1,6 @@
 import { Cover } from "@/assets/images";
 
-export const mockedBlogContents = [
+export const blogContentMock = [
   {
     slug: "traffic-jam-analakely",
     author: "Fiantso Harena",

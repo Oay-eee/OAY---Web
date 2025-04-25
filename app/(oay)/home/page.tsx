@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent, FormEvent } from "react";
-import { mockedBlogContents } from "@/data";
+import { blogContentMock } from "@/assets/mock";
 import { PlaceholdersAndVanishInput } from "@/components/aceternity";
 import { BlogCard, ProfileCard } from "@/components/shared";
 import { DiscoverSection, Header, SuggestedFriends } from "@/app/(oay)/home/_components";
@@ -36,7 +36,7 @@ export default function Home() {
           <DiscoverSection />
         </aside>
         <section className="scrollbar-hide space-y-10 overflow-y-auto p-5 pb-30">
-          {mockedBlogContents.map((content, index) => (
+          {blogContentMock.map((content, index) => (
             <BlogCard key={index} content={content} />
           ))}
         </section>

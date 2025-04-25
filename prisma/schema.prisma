@@ -37,8 +37,8 @@ model User {
 
 model Friends {
   id         String    @id @default(cuid())
-  isAccepted Boolean?  @default(false)
-  isDeleted  Boolean?  @default(false)
+  isAccepted Boolean   @default(false)
+  isDeleted  Boolean   @default(false)
   createdAt  DateTime  @default(now())
   acceptedAt DateTime?
 

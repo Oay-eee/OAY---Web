@@ -9,7 +9,7 @@ type OutsideClickCallback = (event: MouseEvent | TouchEvent) => void;
  * @param ref - React ref object for the element to monitor
  * @param callback - Function to call when a click occurs outside the referenced element
  */
-export function useOutsideClick<T extends HTMLElement>(
+export function useOutsideClick<T extends HTMLElement | null>(
   ref: RefObject<T>,
   callback: OutsideClickCallback
 ) {

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { mockedBlogContents } from "@/data";
+import { blogContentMock } from "@/assets/mock";
 import {
   IconClock,
   IconMessage2,
@@ -9,7 +9,7 @@ import {
 } from "@tabler/icons-react";
 import { FollowerPointerCard } from "../aceternity";
 
-export const BlogCard = ({ content }: { content: (typeof mockedBlogContents)[0] }) => (
+export const BlogCard = ({ content }: { content: (typeof blogContentMock)[0] }) => (
   <FollowerPointerCard>
     <div className="group relative overflow-hidden rounded-2xl bg-zinc-800 transition duration-200 hover:shadow-xl">
       <div className="relative aspect-[16/10] w-full overflow-hidden rounded-tl-lg rounded-tr-lg">
