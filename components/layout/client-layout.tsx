@@ -4,7 +4,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { ThemeProvider } from "next-themes";
-import { RingLoader } from "react-spinners";
+import { ClipLoader } from "react-spinners";
 import { Toaster } from "@/components/ui";
 
 export const ClientLayout = ({ children }: { children: ReactNode }) => {
@@ -32,7 +32,7 @@ export const ClientLayout = ({ children }: { children: ReactNode }) => {
             transition={{ duration: 0.5 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
           >
-            <RingLoader color="#ffffff" size={100} />
+            <ClipLoader color="#ffffff" size={50} />
           </motion.div>
         )}
       </AnimatePresence>
