@@ -9,27 +9,8 @@ import {
 } from "@tabler/icons-react";
 import { FollowerPointerCard } from "../aceternity";
 
-const TitleComponent = ({ title, avatar }: { title: string; avatar: string }) => (
-  <div className="flex items-center space-x-2">
-    <Image
-      src={avatar}
-      height="20"
-      width="20"
-      alt="avatar"
-      className="rounded-full border-2 border-white"
-    />
-    <p>{title}</p>
-  </div>
-);
-
-export const BlogCard = ({
-  content,
-  avatar,
-}: {
-  content: (typeof mockedBlogContents)[0];
-  avatar: any;
-}) => (
-  <FollowerPointerCard title={<TitleComponent title={content.author} avatar={avatar} />}>
+export const BlogCard = ({ content }: { content: (typeof mockedBlogContents)[0] }) => (
+  <FollowerPointerCard>
     <div className="group relative overflow-hidden rounded-2xl bg-zinc-800 transition duration-200 hover:shadow-xl">
       <div className="relative aspect-[16/10] w-full overflow-hidden rounded-tl-lg rounded-tr-lg">
         <Image

@@ -3,16 +3,11 @@
 import { ChangeEvent, FormEvent } from "react";
 import Link from "next/link";
 import { mockedBlogContents } from "@/data";
-import { useCurrentUser } from "@/hooks";
 import { IconAlertSquareRoundedFilled, IconCircleArrowDownFilled } from "@tabler/icons-react";
 import { AnimatedList, ExpandableCard, PlaceholdersAndVanishInput } from "@/components/aceternity";
 import { BlogCard, ProfileCard } from "@/components/shared";
 
 export default function Home() {
-  const currentUser = useCurrentUser();
-
-  if (!currentUser?.image) return <h1>No image available</h1>;
-
   const placeholders = [
     "Who is Fiantso Harena?",
     "What is happening in your neighborhood?",
@@ -53,7 +48,7 @@ export default function Home() {
 
         <div className="scrollbar-hide space-y-10 overflow-y-auto p-5 pb-30">
           {mockedBlogContents.map((content, index) => (
-            <BlogCard key={index} content={content} avatar={currentUser.image} />
+            <BlogCard key={index} content={content} />
           ))}
         </div>
 
