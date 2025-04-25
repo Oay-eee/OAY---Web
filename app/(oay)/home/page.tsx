@@ -1,24 +1,23 @@
 "use client";
 
 import { ChangeEvent, FormEvent } from "react";
-import Link from "next/link";
 import { mockedBlogContents } from "@/data";
-import { IconAlertSquareRoundedFilled, IconCircleArrowDownFilled } from "@tabler/icons-react";
-import { AnimatedList, ExpandableCard, PlaceholdersAndVanishInput } from "@/components/aceternity";
+import { PlaceholdersAndVanishInput } from "@/components/aceternity";
 import { BlogCard, ProfileCard } from "@/components/shared";
+import { DiscoverSection, Header, SuggestedFriends } from "@/app/(oay)/home/_components";
+
+const placeholders = [
+  "Who is Fiantso Harena?",
+  "What is happening in your neighborhood?",
+  "How about the traffics?",
+];
 
 export default function Home() {
-  const placeholders = [
-    "Who is Fiantso Harena?",
-    "What is happening in your neighborhood?",
-    "How about the traffics?",
-  ];
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("submitted");
   };
@@ -26,43 +25,24 @@ export default function Home() {
   return (
     <main className="h-screen w-full">
       <div className="mx-auto grid h-full max-w-[90vw] grid-cols-1 lg:grid-cols-[1fr_2fr_1fr]">
-        <div className="scrollbar-hide hidden overflow-y-auto p-5 lg:block">
-          <div className="mb-10 flex items-center gap-5">
-            <IconAlertSquareRoundedFilled size={50} />
-            <h2 className="text-5xl font-bold text-white">Oay</h2>
-          </div>
+        <aside className="scrollbar-hide hidden overflow-y-auto p-5 lg:block">
+          <Header />
           <PlaceholdersAndVanishInput
             placeholders={placeholders}
-            onChange={handleChange}
-            onSubmit={onSubmit}
+            onChange={handleInputChange}
+            onSubmit={handleFormSubmit}
           />
           <ProfileCard />
-          <div className="mt-5">
-            <div className="flex items-center justify-between">
-              <h2 className="my-5 text-2xl font-bold text-white">Discover</h2>
-              <IconCircleArrowDownFilled className="cursor-pointer" />
-            </div>
-            <AnimatedList />
-          </div>
-        </div>
-
-        <div className="scrollbar-hide space-y-10 overflow-y-auto p-5 pb-30">
+          <DiscoverSection />
+        </aside>
+        <section className="scrollbar-hide space-y-10 overflow-y-auto p-5 pb-30">
           {mockedBlogContents.map((content, index) => (
             <BlogCard key={index} content={content} />
           ))}
-        </div>
-
-        <div className="scrollbar-hide hidden overflow-y-auto lg:block">
-          <div className="mt-5">
-            <div className="flex items-center justify-between">
-              <h2 className="my-5 text-2xl font-bold text-white">Suggested friends</h2>
-              <Link href="#" className="text-sm underline">
-                View more
-              </Link>
-            </div>
-            <ExpandableCard />
-          </div>
-        </div>
+        </section>
+        <aside className="scrollbar-hide hidden overflow-y-auto lg:block">
+          <SuggestedFriends />
+        </aside>
       </div>
     </main>
   );
