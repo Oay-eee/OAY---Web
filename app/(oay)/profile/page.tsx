@@ -1,6 +1,6 @@
 "use client";
 
-import { mockedBlogContents } from "@/data";
+import { blogContentMock } from "@/assets/mock";
 import { useCurrentUser } from "@/hooks";
 import { BlogCard, SidebarProfile, SidebarUserInfo } from "@/components/shared";
 
@@ -22,8 +22,8 @@ export default function Home() {
         <div className="scrollbar-hide space-y-10 overflow-y-auto p-5 px-20 pb-30">
           <h2 className="my-5 text-2xl font-bold text-white">This user&#39;s posts</h2>
           <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
-          {mockedBlogContents.map((content, index) => (
-            <BlogCard key={index} content={content} avatar={currentUser.image} />
+          {blogContentMock.map((content, index) => (
+            <BlogCard key={index} content={content} />
           ))}
         </div>
       </div>

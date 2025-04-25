@@ -2,7 +2,6 @@
 
 import { ChangeEvent, FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { blogContentMock } from "@/assets/mock";
-import { getSuggestedFriends } from "@/data";
 import { useCurrentUser } from "@/hooks";
 import { User } from "next-auth";
 import { toast } from "sonner";
@@ -45,7 +44,6 @@ export default function Home() {
 
         if (response.ok) {
           setSuggestedFriends(data);
-          toast(`${data.length} suggested friends fetched correctly`);
         } else {
           toast.error("Error fetching suggested friends");
         }
