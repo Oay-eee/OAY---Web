@@ -3,8 +3,8 @@
 import { FormEvent, ReactNode, useState } from "react";
 import { cn } from "@/lib";
 import { IconReport } from "@tabler/icons-react";
+import { FileUpload, TextGenerateEffect } from "@/components/aceternity";
 import { Button, Input, Label, Textarea } from "@/components/ui";
-import { FileUpload, TextGenerateEffect } from "../../../components/aceternity";
 
 const LabelInputContainer = ({
   children,

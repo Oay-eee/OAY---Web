@@ -5,13 +5,8 @@ import Link from "next/link";
 import { mockedBlogContents } from "@/data";
 import { useCurrentUser } from "@/hooks";
 import { IconAlertSquareRoundedFilled, IconCircleArrowDownFilled } from "@tabler/icons-react";
-import {
-  AnimatedList,
-  BlogCard,
-  ExpandableCard,
-  PlaceholdersAndVanishInput,
-  ProfileCard,
-} from "../../../components/aceternity";
+import { AnimatedList, ExpandableCard, PlaceholdersAndVanishInput } from "@/components/aceternity";
+import { BlogCard, ProfileCard } from "@/components/shared";
 
 export default function Home() {
   const currentUser = useCurrentUser();
