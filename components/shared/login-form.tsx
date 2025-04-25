@@ -94,7 +94,7 @@ export const LoginForm = ({ callbackUrl, urlError }: LoginFormProps) => {
                       {...field}
                       type="email"
                       disabled={isPending}
-                      placeholder="m@example.com"
+                      placeholder="john.doe@example.com"
                       autoComplete="email"
                     />
                   </FormControl>
@@ -127,22 +127,20 @@ export const LoginForm = ({ callbackUrl, urlError }: LoginFormProps) => {
             />
           </>
         )}
-
         <FormError message={error || urlError} />
         <FormSuccess message={success} />
-
-        <Button type="submit" disabled={isPending} className="w-full">
+        <Button type="submit" disabled={isPending} className="w-full cursor-pointer">
           {showTwoFactor ? "Confirm" : "Login"}
         </Button>
-
         <div className="relative text-center text-sm">
           <span className="bg-background text-muted-foreground relative z-10 px-2">
             Or continue with
           </span>
           <div className="after:border-border absolute inset-0 top-1/2 z-0 border-t" />
         </div>
-
-        <Social />
+        <div className="grid grid-cols-2 gap-4">
+          <Social />
+        </div>
       </form>
     </Form>
   );
