@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { newVerificationAction } from "@/actions";
-import { Social, VerificationResult } from "@/components/shared";
+import { TextGenerateEffect } from "@/components/aceternity";
+import { VerificationResult } from "@/components/shared";
 import { cn } from "@/lib/utils";
 
 type VerificationPageProps = {
@@ -21,21 +22,15 @@ export default async function NewVerification({ searchParams }: VerificationPage
 
   return (
     <section className={cn("flex w-full flex-col items-center justify-center gap-6")}>
+      <div className="flex flex-col items-center gap-5 text-center">
+        <TextGenerateEffect words="Verification result" />
+      </div>
       <VerificationResult success={verificationResult.success} error={verificationResult.error} />
       <div className="mt-10 text-center text-sm">
         Go back to{" "}
         <Link href="/auth/login" className="underline underline-offset-4">
           Login page
         </Link>
-      </div>
-      <div className="relative text-center text-sm">
-        <span className="bg-background text-muted-foreground relative z-10 px-2">
-          Or continue with
-        </span>
-        <div className="after:border-border absolute inset-0 top-1/2 z-0 border-t" />
-      </div>
-      <div className="grid grid-cols-2 gap-4">
-        <Social />
       </div>
     </section>
   );

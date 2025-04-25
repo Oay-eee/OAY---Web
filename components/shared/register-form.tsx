@@ -121,8 +121,9 @@ export const RegisterForm = () => {
           </span>
           <div className="after:border-border absolute inset-0 top-1/2 z-0 border-t" />
         </div>
-
-        <Social />
+        <div className="grid grid-cols-2 gap-4">
+          <Social />
+        </div>
       </form>
     </Form>
   );
