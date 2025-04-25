@@ -7,9 +7,8 @@ import { RegisterSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { FormError } from "@/components/shared/form-error";
-import { FormSuccess } from "@/components/shared/form-success";
-import { Social } from "@/components/shared/social";
+import { TextGenerateEffect } from "@/components/aceternity";
+import { FormError, FormSuccess, Social } from "@/components/shared";
 import {
   Button,
   Form,
@@ -21,7 +20,6 @@ import {
   Input,
 } from "@/components/ui";
 import { cn } from "@/lib/utils";
-import { TextGenerateEffect } from "../../../components/aceternity";
 
 export default function Register() {
   const [error, setError] = useState<string | undefined>("");

@@ -6,3 +6,4 @@ export * from "./page-under-development";
 export * from "./profile-card";
 export * from "./sidebar-profile";
 export * from "./sidebar-user-info";
+export * from "./social";

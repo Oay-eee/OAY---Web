@@ -9,9 +9,8 @@ import { LoginSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { FormError } from "@/components/shared/form-error";
-import { FormSuccess } from "@/components/shared/form-success";
-import { Social } from "@/components/shared/social";
+import { TextGenerateEffect } from "@/components/aceternity";
+import { FormError, FormSuccess, Social } from "@/components/shared";
 import {
   Button,
   Form,
@@ -22,7 +21,6 @@ import {
   FormMessage,
   Input,
 } from "@/components/ui";
-import { TextGenerateEffect } from "../../../components/aceternity";
 
 export default function Login() {
   const [showTwoFactor, setShowTwoFactor] = useState(false);
