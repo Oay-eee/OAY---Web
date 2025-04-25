@@ -16,31 +16,23 @@ export const getUserById = async (id: string) => {
   }
 };
 
-export const getSuggestedFriends = async (currentUserId: string) => {
+export const getSuggestedFriends = async (currentUserId: string | undefined) => {
+  if (!currentUserId) return [];
+
   try {
     return await prisma.user.findMany({
       where: {
         id: { not: currentUserId },
-        AND: [
-          {
-            NOT: {
-              OR: [
-                { sentFriendRequests: { some: { receiverId: currentUserId } } },
-                { receivedFriendRequests: { some: { senderId: currentUserId } } },
-              ],
-            },
-          },
-        ],
-      },
-      select: {
-        id: true,
-        name: true,
-        image: true,
-        gender: true,
-        pseudo: true,
+        NOT: {
+          AND: [
+            { sentFriendRequests: { some: { receiverId: currentUserId } } },
+            { receivedFriendRequests: { some: { senderId: currentUserId } } },
+          ],
+        },
       },
     });
-  } catch {
-    return null;
+  } catch (err) {
+    console.error("Error fetching suggested friends:", err);
+    return [];
   }
 };

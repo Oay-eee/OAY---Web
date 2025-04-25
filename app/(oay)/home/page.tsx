@@ -1,26 +1,62 @@
 "use client";
 
-import { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent, FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { blogContentMock } from "@/assets/mock";
+import { getSuggestedFriends } from "@/data";
+import { useCurrentUser } from "@/hooks";
+import { User } from "next-auth";
+import { toast } from "sonner";
 import { PlaceholdersAndVanishInput } from "@/components/aceternity";
 import { BlogCard, ProfileCard } from "@/components/shared";
 import { DiscoverSection, Header, SuggestedFriends } from "@/app/(oay)/home/_components";
 
-const placeholders = [
-  "Who is Fiantso Harena?",
-  "What is happening in your neighborhood?",
-  "How about the traffics?",
-];
-
 export default function Home() {
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-  };
+  const [suggestedFriends, setSuggestedFriends] = useState<User[] | null>([]);
+  const [loading, setLoading] = useState(false);
+  const currentUser = useCurrentUser();
 
-  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const placeholders = useMemo(
+    () => [
+      "Who is Fiantso Harena?",
+      "What is happening in your neighborhood?",
+      "How about the traffics?",
+    ],
+    []
+  );
+
+  const handleInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+  }, []);
+
+  const handleFormSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("submitted");
-  };
+  }, []);
+
+  useEffect(() => {
+    if (!currentUser?.id) return;
+
+    (async () => {
+      setLoading(true);
+
+      try {
+        const response = await fetch("/api/friends/suggested");
+        const data = await response.json();
+
+        if (response.ok) {
+          setSuggestedFriends(data);
+          toast(`${data.length} suggested friends fetched correctly`);
+        } else {
+          toast.error("Error fetching suggested friends");
+        }
+      } catch (err) {
+        console.error("Error fetching suggested friends:", err);
+        toast.error("Error fetching suggested friends");
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [currentUser?.id]);
 
   return (
     <main className="h-screen w-full">
@@ -35,13 +71,15 @@ export default function Home() {
           <ProfileCard />
           <DiscoverSection />
         </aside>
+
         <section className="scrollbar-hide space-y-10 overflow-y-auto p-5 pb-30">
           {blogContentMock.map((content, index) => (
             <BlogCard key={index} content={content} />
           ))}
         </section>
+
         <aside className="scrollbar-hide hidden overflow-y-auto lg:block">
-          <SuggestedFriends />
+          <SuggestedFriends suggestedFriends={suggestedFriends} loading={loading} />
         </aside>
       </div>
     </main>
