@@ -7,7 +7,7 @@ import { ThemeProvider } from "next-themes";
 import { RingLoader } from "react-spinners";
 import { Toaster } from "@/components/ui";
 
-export default function ClientLayout({ children }: { children: ReactNode }) {
+export const ClientLayout = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
   const [loading, setLoading] = useState(false);
 
@@ -40,4 +40,4 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
       <Toaster position="top-right" />
     </ThemeProvider>
   );
-}
+};

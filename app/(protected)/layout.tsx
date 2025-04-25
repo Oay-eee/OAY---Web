@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { IconBrandGithub, IconBrandX, IconHome, IconPlus, IconUser } from "@tabler/icons-react";
-import { BackgroundBeams, FloatingDock } from "@/components/common";
+import { BackgroundBeams, FloatingDock } from "../../components/aceternity";
 
 export default function OayLayout({ children }: { children: ReactNode }) {
   const links = [

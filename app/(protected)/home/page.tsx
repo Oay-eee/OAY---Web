@@ -11,7 +11,7 @@ import {
   ExpandableCard,
   PlaceholdersAndVanishInput,
   ProfileCard,
-} from "@/components/common";
+} from "../../../components/aceternity";
 
 export default function Home() {
   const currentUser = useCurrentUser();

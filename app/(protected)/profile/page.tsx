@@ -2,7 +2,7 @@
 
 import { mockedBlogContents } from "@/data";
 import { useCurrentUser } from "@/hooks";
-import { BlogCard } from "@/components/common";
+import { BlogCard } from "../../../components/aceternity";
 import { SidebarProfile, SidebarUserInfo } from "@/components/pages";
 
 export default function Home() {

@@ -4,7 +4,7 @@ import "./globals.css";
 import { ReactNode } from "react";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
-import ClientLayout from "@/app/client-layout";
+import { ClientLayout } from "@/components/layout";
 
 const poppins = Poppins({
   subsets: ["latin"],
