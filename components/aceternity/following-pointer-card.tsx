@@ -1,22 +1,21 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { MouseEvent, ReactNode, useEffect, useRef, useState } from "react";
 import { AnimatePresence, useMotionValue } from "motion/react";
 import { cn } from "@/lib/utils";
 
-export const FollowerPointerCard = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
+type FollowingPointerCardProps = {
+  children: ReactNode;
   className?: string;
-  title?: string | React.ReactNode;
-}) => {
+  title?: string | ReactNode;
+};
+
+export const FollowerPointerCard = ({ children, className }: FollowingPointerCardProps) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const ref = React.useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [rect, setRect] = useState<DOMRect | null>(null);
-  const [isInside, setIsInside] = useState<boolean>(false); // Add this line
+  const [isInside, setIsInside] = useState<boolean>(false);
 
   useEffect(() => {
     if (ref.current) {
@@ -24,7 +23,7 @@ export const FollowerPointerCard = ({
     }
   }, []);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (rect) {
       const scrollX = window.scrollX;
       const scrollY = window.scrollY;

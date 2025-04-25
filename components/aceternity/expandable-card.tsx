@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
 import { useOutsideClick } from "@/hooks";
 import { AnimatePresence, motion } from "motion/react";
 
-export function ExpandableCard() {
+export const ExpandableCard = () => {
   const [active, setActive] = useState<(typeof cards)[number] | boolean | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const id = useId();
@@ -165,7 +165,7 @@ export function ExpandableCard() {
       </ul>
     </>
   );
-}
+};
 
 export const CloseIcon = () => {
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { MouseEventHandler, ReactNode, UIEvent, useEffect, useRef, useState } from "react";
+import { MouseEventHandler, ReactNode, UIEvent, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   IconBuilding,
@@ -13,27 +13,31 @@ import {
 } from "@tabler/icons-react";
 import { motion, useInView } from "framer-motion";
 
-interface ItemType {
+type ItemType = {
   titre: string;
   icon: ReactNode;
   href: string;
-}
+};
 
-interface AnimatedItemProps {
+type AnimatedItemProps = {
   children: ReactNode;
   delay?: number;
   index: number;
   onMouseEnter?: MouseEventHandler<HTMLDivElement>;
   onClick?: MouseEventHandler<HTMLDivElement>;
-}
+};
 
-const AnimatedItem: React.FC<AnimatedItemProps> = ({
-  children,
-  delay = 0,
-  index,
-  onMouseEnter,
-  onClick,
-}) => {
+type AnimatedListProps = {
+  items?: ItemType[];
+  onItemSelect?: (item: ItemType, index: number) => void;
+  showGradients?: boolean;
+  enableArrowNavigation?: boolean;
+  className?: string;
+  itemClassName?: string;
+  initialSelectedIndex?: number;
+};
+
+const AnimatedItem = ({ children, delay = 0, index, onMouseEnter, onClick }: AnimatedItemProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.5, once: false });
 
@@ -53,17 +57,7 @@ const AnimatedItem: React.FC<AnimatedItemProps> = ({
   );
 };
 
-interface AnimatedListProps {
-  items?: ItemType[];
-  onItemSelect?: (item: ItemType, index: number) => void;
-  showGradients?: boolean;
-  enableArrowNavigation?: boolean;
-  className?: string;
-  itemClassName?: string;
-  initialSelectedIndex?: number;
-}
-
-export const AnimatedList: React.FC<AnimatedListProps> = ({
+export const AnimatedList = ({
   items = [
     {
       titre: "Popular news of the day",
@@ -107,7 +101,7 @@ export const AnimatedList: React.FC<AnimatedListProps> = ({
   className = "",
   itemClassName = "",
   initialSelectedIndex = -1,
-}) => {
+}: AnimatedListProps) => {
   const listRef = useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = useState(initialSelectedIndex);
   const [keyboardNav, setKeyboardNav] = useState(false);

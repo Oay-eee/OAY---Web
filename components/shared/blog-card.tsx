@@ -7,7 +7,7 @@ import {
   IconThumbDown,
   IconThumbUp,
 } from "@tabler/icons-react";
-import { FollowerPointerCard } from "";
+import { FollowerPointerCard } from "../aceternity";
 
 const TitleComponent = ({ title, avatar }: { title: string; avatar: string }) => (
   <div className="flex items-center space-x-2">

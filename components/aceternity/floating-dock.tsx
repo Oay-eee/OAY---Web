@@ -11,18 +11,28 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
-import { LogoutButton } from "@/components/aceternity/index";
+import { LogoutButton } from "@/components/shared";
 import { cn } from "@/lib/utils";
 
-export const FloatingDock = ({
-  items,
-  desktopClassName,
-  mobileClassName,
-}: {
+type FloatingDockProps = {
   items: { title: string; icon: ReactNode; href: string }[];
   desktopClassName?: string;
   mobileClassName?: string;
-}) => {
+};
+
+type FloatingDockPlatformProps = {
+  items: { title: string; icon: ReactNode; href: string }[];
+  className?: string;
+};
+
+type IconContainerProps = {
+  mouseX: MotionValue;
+  title: string;
+  icon: ReactNode;
+  href: string;
+};
+
+export const FloatingDock = ({ items, desktopClassName, mobileClassName }: FloatingDockProps) => {
   return (
     <div className="absolute bottom-2">
       <FloatingDockDesktop items={items} className={desktopClassName} />
@@ -31,14 +41,9 @@ export const FloatingDock = ({
   );
 };
 
-const FloatingDockMobile = ({
-  items,
-  className,
-}: {
-  items: { title: string; icon: ReactNode; href: string }[];
-  className?: string;
-}) => {
+const FloatingDockMobile = ({ items, className }: FloatingDockPlatformProps) => {
   const [open, setOpen] = useState(false);
+
   return (
     <div className={cn("relative block md:hidden", className)}>
       <AnimatePresence>
@@ -86,14 +91,9 @@ const FloatingDockMobile = ({
   );
 };
 
-const FloatingDockDesktop = ({
-  items,
-  className,
-}: {
-  items: { title: string; icon: ReactNode; href: string }[];
-  className?: string;
-}) => {
+const FloatingDockDesktop = ({ items, className }: FloatingDockPlatformProps) => {
   const mouseX = useMotionValue(Infinity);
+
   return (
     <motion.div
       onMouseMove={(e) => mouseX.set(e.pageX)}
@@ -119,17 +119,7 @@ const FloatingDockDesktop = ({
   );
 };
 
-function IconContainer({
-  mouseX,
-  title,
-  icon,
-  href,
-}: {
-  mouseX: MotionValue;
-  title: string;
-  icon: ReactNode;
-  href: string;
-}) {
+const IconContainer = ({ mouseX, title, icon, href }: IconContainerProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const distance = useTransform(mouseX, (val) => {
@@ -198,4 +188,4 @@ function IconContainer({
       </motion.div>
     </Link>
   );
-}
+};

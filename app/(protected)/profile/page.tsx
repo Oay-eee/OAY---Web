@@ -2,8 +2,8 @@
 
 import { mockedBlogContents } from "@/data";
 import { useCurrentUser } from "@/hooks";
-import { BlogCard } from "../../../components/aceternity";
 import { SidebarProfile, SidebarUserInfo } from "@/components/pages";
+import { BlogCard } from "../../../components/aceternity";
 
 export default function Home() {
   const currentUser = useCurrentUser();

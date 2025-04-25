@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { IconUpload } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import { useDropzone } from "react-dropzone";
