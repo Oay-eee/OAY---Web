@@ -37,7 +37,7 @@ export const ClientLayout = ({ children }: { children: ReactNode }) => {
         )}
       </AnimatePresence>
       {children}
-      <Toaster position="top-right" />
+      <Toaster position="top-right" richColors />
     </ThemeProvider>
   );
 };

@@ -3,9 +3,11 @@
 import { ReactNode, useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
 import { useOutsideClick } from "@/hooks";
-import { IconX } from "@tabler/icons-react";
+import { IconSend, IconUser, IconX } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "motion/react";
 import { User } from "next-auth";
+import { toast } from "sonner";
+import { Button } from "@/components/ui";
 
 type SuggestedFriendData = {
   id: string;
@@ -101,21 +103,30 @@ export const ExpandableCard = ({ data }: { data: User[] | null }) => {
                     </motion.h3>
                     <motion.p
                       layoutId={`description-${active.description}-${id}`}
-                      className="text-neutral-600 dark:text-neutral-400"
+                      className="dark:text-neutral-400"
                     >
                       {active.description}
                     </motion.p>
                   </div>
                 </div>
               </div>
-              <motion.a
-                layoutId={`button-${active.title}-${id}`}
-                href={active.ctaLink}
-                target="_blank"
-                className="rounded-full bg-green-500 px-4 py-3 text-sm font-bold text-white"
-              >
-                {active.ctaText}
-              </motion.a>
+              <div className="flex w-full justify-center gap-10">
+                <Button
+                  onClick={() => {
+                    toast.success("Request sent successfully");
+                    setActive(false);
+                  }}
+                  size="lg"
+                  className="bg-chart-2 hover:bg-chart-2/90 cursor-pointer rounded-full font-semibold text-white"
+                >
+                  <IconSend />
+                  Send request
+                </Button>
+                <Button size="lg" className="cursor-pointer rounded-full font-semibold">
+                  <IconUser />
+                  View Profile
+                </Button>
+              </div>
             </motion.div>
           </div>
         ) : null}
@@ -157,7 +168,7 @@ export const ExpandableCard = ({ data }: { data: User[] | null }) => {
                 </motion.h3>
                 <motion.p
                   layoutId={`description-${user.id}-${id}`}
-                  className="text-center text-sm text-neutral-600 md:text-left dark:text-neutral-400"
+                  className="text-center text-sm text-ellipsis text-neutral-600 md:text-left dark:text-neutral-400"
                 >
                   {user.email ?? "No email"}
                 </motion.p>
