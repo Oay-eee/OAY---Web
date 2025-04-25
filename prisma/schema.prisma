@@ -16,20 +16,40 @@ enum Gender {
 }
 
 model User {
-  id                    String                 @id @default(cuid())
-  name                  String?
-  email                 String?                @unique
-  emailVerified         DateTime?
-  password              String?
-  pseudo                String?                @unique
-  image                 String?
-  gender                Gender?
-  roles                 String                 @default("[]")
-  points                Int                    @default(0)
-  createdAt             DateTime               @default(now())
-  accounts              Account[]
-  isTwoFactorEnabled    Boolean                @default(false)
-  twoFactorConfirmation TwoFactorConfirmation?
+  id                 String    @id @default(cuid())
+  name               String?
+  email              String?   @unique
+  emailVerified      DateTime?
+  password           String?
+  pseudo             String?   @unique
+  image              String?
+  gender             Gender?
+  roles              String    @default("[]")
+  points             Int       @default(0)
+  createdAt          DateTime  @default(now())
+  isTwoFactorEnabled Boolean   @default(false)
+
+  accounts               Account[]
+  twoFactorConfirmation  TwoFactorConfirmation?
+  sentFriendRequests     Friends[]              @relation("SentRequests")
+  receivedFriendRequests Friends[]              @relation("ReceivedRequests")
+}
+
+model Friends {
+  id         String    @id @default(cuid())
+  isAccepted Boolean?  @default(false)
+  isDeleted  Boolean?  @default(false)
+  createdAt  DateTime  @default(now())
+  acceptedAt DateTime?
+
+  senderId   String
+  receiverId String
+
+  sender   User @relation("SentRequests", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver User @relation("ReceivedRequests", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@unique([senderId, receiverId])
+  @@index([receiverId])
 }
 
 model Account {
