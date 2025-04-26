@@ -8,7 +8,7 @@ import { LoginSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { FormError, FormSuccess, Social } from "@/components/shared/index";
+import { FormError, FormSuccess } from "@/components/shared";
 import {
   Button,
   Form,
@@ -63,7 +63,6 @@ export const LoginForm = ({ callbackUrl, urlError }: LoginFormProps) => {
     });
   };
 
-  // Render
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className={cn("grid gap-6")} noValidate>
@@ -137,9 +136,6 @@ export const LoginForm = ({ callbackUrl, urlError }: LoginFormProps) => {
             Or continue with
           </span>
           <div className="after:border-border absolute inset-0 top-1/2 z-0 border-t" />
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <Social />
         </div>
       </form>
     </Form>

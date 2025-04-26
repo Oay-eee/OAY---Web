@@ -4,7 +4,8 @@ import "./globals.css";
 import { ReactNode } from "react";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
-import { ClientLayout } from "@/components/layout";
+import { ThemeProvider } from "next-themes";
+import { Toaster } from "@/components/ui";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -24,7 +25,10 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     <SessionProvider session={session}>
       <html lang="en" suppressHydrationWarning>
         <body className={`${poppins.className} antialiased`}>
-          <ClientLayout>{children}</ClientLayout>
+          <ThemeProvider defaultTheme="dark" attribute="class">
+            {children}
+            <Toaster position="top-right" richColors />
+          </ThemeProvider>
         </body>
       </html>
     </SessionProvider>

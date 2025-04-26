@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { cn } from "@/lib";
 import { TextGenerateEffect } from "@/components/aceternity";
-import { LoginForm } from "@/components/shared";
+import { LoginForm, Social } from "@/components/shared";
 
 const OAUTH_ERROR_MESSAGE = "Email already in use with different provider!";
 
@@ -20,6 +20,9 @@ export default async function Login({ searchParams }: LoginPageProps) {
         <TextGenerateEffect words="Login to your account" />
       </div>
       <LoginForm callbackUrl={callbackUrl} urlError={urlError} />
+      <div className="grid grid-cols-2 gap-4">
+        <Social />
+      </div>
       <div className="text-center text-sm">
         Don&#39;t have an account?{" "}
         <Link href="/auth/register" className="underline underline-offset-4">

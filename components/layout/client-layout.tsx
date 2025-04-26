@@ -22,22 +22,7 @@ export const ClientLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <ThemeProvider attribute="class" defaultTheme="dark">
-      <AnimatePresence>
-        {loading && (
-          <motion.div
-            key="loader"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
-          >
-            <ClipLoader color="#ffffff" size={50} />
-          </motion.div>
-        )}
-      </AnimatePresence>
       {children}
-      <Toaster position="top-right" richColors />
     </ThemeProvider>
   );
 };
