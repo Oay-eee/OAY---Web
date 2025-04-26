@@ -1,4 +1,4 @@
-import { IconAlertSquareRoundedFilled } from "@tabler/icons-react";
+import { IconAlertSquareRoundedFilled } from '@tabler/icons-react';
 
 export const Header = () => (
   <header className="mb-10 flex items-center gap-5">

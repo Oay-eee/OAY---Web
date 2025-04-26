@@ -1,4 +1,4 @@
-import { IconCheck } from "@tabler/icons-react";
+import { IconCheck } from '@tabler/icons-react';
 
 interface FormSuccessProps {
   message?: string;

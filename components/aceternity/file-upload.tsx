@@ -1,10 +1,12 @@
-"use client";
+'use client';
 
-import { useRef, useState } from "react";
-import { IconUpload } from "@tabler/icons-react";
-import { motion } from "motion/react";
-import { useDropzone } from "react-dropzone";
-import { cn } from "@/lib/utils";
+import { useRef, useState } from 'react';
+
+import { IconUpload } from '@tabler/icons-react';
+import { motion } from 'motion/react';
+import { useDropzone } from 'react-dropzone';
+
+import { cn } from '@/lib/utils';
 
 const mainVariant = {
   initial: {
@@ -68,9 +70,7 @@ export const FileUpload = ({ onChange }: { onChange?: (files: File[]) => void })
           <GridPattern />
         </div>
         <div className="flex flex-col items-center justify-center">
-          <p className="relative z-20 text-base font-bold text-neutral-700 dark:text-neutral-300">
-            Upload Image
-          </p>
+          <p className="relative z-20 text-base font-bold text-neutral-700 dark:text-neutral-300">Upload Image</p>
           <p className="relative z-20 mt-2 text-base font-normal text-neutral-400 dark:text-neutral-400">
             Drag or drop your image here or click to upload
           </p>
@@ -78,11 +78,11 @@ export const FileUpload = ({ onChange }: { onChange?: (files: File[]) => void })
             {files.length > 0 &&
               files.map((file, idx) => (
                 <motion.div
-                  key={"file" + idx}
-                  layoutId={idx === 0 ? "file-upload" : "file-upload-" + idx}
+                  key={'file' + idx}
+                  layoutId={idx === 0 ? 'file-upload' : 'file-upload-' + idx}
                   className={cn(
-                    "relative z-40 mx-auto mt-4 flex w-full flex-col items-start justify-start overflow-hidden rounded-md bg-white p-4 md:h-24 dark:bg-neutral-900",
-                    "shadow-sm"
+                    'relative z-40 mx-auto mt-4 flex w-full flex-col items-start justify-start overflow-hidden rounded-md bg-white p-4 md:h-24 dark:bg-neutral-900',
+                    'shadow-sm'
                   )}
                 >
                   <div className="flex w-full items-center justify-between gap-4">
@@ -125,13 +125,13 @@ export const FileUpload = ({ onChange }: { onChange?: (files: File[]) => void })
                 layoutId="file-upload"
                 variants={mainVariant}
                 transition={{
-                  type: "spring",
+                  type: 'spring',
                   stiffness: 300,
                   damping: 20,
                 }}
                 className={cn(
-                  "relative z-40 mx-auto mt-4 flex h-32 w-full max-w-[8rem] items-center justify-center rounded-md bg-white group-hover/file:shadow-2xl dark:bg-neutral-900",
-                  "shadow-[0px_10px_50px_rgba(0,0,0,0.1)]"
+                  'relative z-40 mx-auto mt-4 flex h-32 w-full max-w-[8rem] items-center justify-center rounded-md bg-white group-hover/file:shadow-2xl dark:bg-neutral-900',
+                  'shadow-[0px_10px_50px_rgba(0,0,0,0.1)]'
                 )}
               >
                 {isDragActive ? (
@@ -175,8 +175,8 @@ export function GridPattern() {
               key={`${col}-${row}`}
               className={`flex h-10 w-10 shrink-0 rounded-[2px] ${
                 index % 2 === 0
-                  ? "bg-gray-50 dark:bg-neutral-950"
-                  : "bg-gray-50 shadow-[0px_0px_1px_3px_rgba(255,255,255,1)_inset] dark:bg-neutral-950 dark:shadow-[0px_0px_1px_3px_rgba(0,0,0,1)_inset]"
+                  ? 'bg-gray-50 dark:bg-neutral-950'
+                  : 'bg-gray-50 shadow-[0px_0px_1px_3px_rgba(255,255,255,1)_inset] dark:bg-neutral-950 dark:shadow-[0px_0px_1px_3px_rgba(0,0,0,1)_inset]'
               }`}
             />
           );

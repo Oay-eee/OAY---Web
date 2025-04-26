@@ -1,7 +1,8 @@
-import { NextResponse, type NextRequest } from "next/server";
-import authConfig from "@/auth.config";
-import { apiAuthPrefix, authRoutes, DEFAULT_LOGIN_REDIRECT, publicRoutes } from "@/routes";
-import NextAuth from "next-auth";
+import { NextResponse, type NextRequest } from 'next/server';
+
+import authConfig from '@/auth.config';
+import { apiAuthPrefix, authRoutes, DEFAULT_LOGIN_REDIRECT, publicRoutes } from '@/routes';
+import NextAuth from 'next-auth';
 
 const { auth } = NextAuth(authConfig);
 
@@ -45,5 +46,5 @@ export default auth((req: NextRequest) => {
 });
 
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
 };

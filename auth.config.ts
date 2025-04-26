@@ -1,10 +1,11 @@
-import bcrypt from "bcryptjs";
-import type { NextAuthConfig } from "next-auth";
-import Credentials from "next-auth/providers/credentials";
-import Github from "next-auth/providers/github";
-import Google from "next-auth/providers/google";
-import { getUserByEmail } from "./data";
-import { LoginSchema } from "./schemas";
+import bcrypt from 'bcryptjs';
+import type { NextAuthConfig } from 'next-auth';
+import Credentials from 'next-auth/providers/credentials';
+import Github from 'next-auth/providers/github';
+import Google from 'next-auth/providers/google';
+
+import { getUserByEmail } from './data';
+import { LoginSchema } from './schemas';
 
 export default {
   providers: [
@@ -12,12 +13,12 @@ export default {
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       authorization: {
-        url: "https://accounts.google.com/o/oauth2/v2/auth",
+        url: 'https://accounts.google.com/o/oauth2/v2/auth',
         params: {
-          prompt: "consent",
-          access_type: "offline",
-          response_type: "code",
-          scope: "openid email profile",
+          prompt: 'consent',
+          access_type: 'offline',
+          response_type: 'code',
+          scope: 'openid email profile',
         },
       },
     }),

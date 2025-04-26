@@ -1,4 +1,4 @@
-import { prisma } from "@/lib";
+import { prisma } from '@/lib';
 
 export const getVerificationTokenByToken = async (token: string) => {
   try {

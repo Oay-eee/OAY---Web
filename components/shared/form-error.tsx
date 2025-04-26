@@ -1,4 +1,4 @@
-import { IconExclamationMark } from "@tabler/icons-react";
+import { IconExclamationMark } from '@tabler/icons-react';
 
 interface FormErrorProps {
   message?: string;

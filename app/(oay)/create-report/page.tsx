@@ -1,19 +1,15 @@
-"use client";
+'use client';
 
-import { FormEvent, ReactNode, useState } from "react";
-import { cn } from "@/lib";
-import { IconReport } from "@tabler/icons-react";
-import { FileUpload, TextGenerateEffect } from "@/components/aceternity";
-import { Button, Input, Label, Textarea } from "@/components/ui";
+import { FormEvent, ReactNode, useState } from 'react';
 
-const LabelInputContainer = ({
-  children,
-  className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) => {
-  return <div className={cn("flex w-full flex-col space-y-2", className)}>{children}</div>;
+import { cn } from '@/lib';
+import { IconReport } from '@tabler/icons-react';
+
+import { FileUpload, TextGenerateEffect } from '@/components/aceternity';
+import { Button, Input, Label, Textarea } from '@/components/ui';
+
+const LabelInputContainer = ({ children, className }: { children: ReactNode; className?: string }) => {
+  return <div className={cn('flex w-full flex-col space-y-2', className)}>{children}</div>;
 };
 
 export default function CreateReport() {
@@ -25,16 +21,13 @@ export default function CreateReport() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted");
+    console.log('Form submitted');
   };
 
   return (
     <section className="h-screen w-full overflow-hidden p-6 md:p-20">
       <div className="mx-auto grid h-full max-w-[90vw] grid-cols-1 overflow-hidden rounded-2xl bg-zinc-900 md:grid-cols-2">
-        <div
-          className="overflow-y-auto p-6 md:p-10"
-          style={{ scrollbarWidth: "thin", scrollbarColor: "#222 #060606" }}
-        >
+        <div className="overflow-y-auto p-6 md:p-10" style={{ scrollbarWidth: 'thin', scrollbarColor: '#222 #060606' }}>
           <div className="flex flex-col gap-5">
             <div className="flex items-center justify-between">
               <TextGenerateEffect words="Create a report" />
@@ -50,11 +43,7 @@ export default function CreateReport() {
             </LabelInputContainer>
             <LabelInputContainer className="mb-4">
               <Label htmlFor="message">Message</Label>
-              <Textarea
-                id="message"
-                placeholder="Write description"
-                className="max-h-48 resize-none overflow-y-auto"
-              />
+              <Textarea id="message" placeholder="Write description" className="max-h-48 resize-none overflow-y-auto" />
             </LabelInputContainer>
             <LabelInputContainer className="mb-4">
               <Label htmlFor="type">Report type</Label>

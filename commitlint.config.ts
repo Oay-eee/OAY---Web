@@ -43,49 +43,37 @@
  *       - `other`: Miscellaneous changes
  */
 
-import type { UserConfig } from "@commitlint/types";
+import type { UserConfig } from '@commitlint/types';
 
 const Configuration: UserConfig = {
-  extends: ["@commitlint/config-conventional"],
-  parserPreset: "conventional-changelog-atom",
-  formatter: "@commitlint/format",
+  extends: ['@commitlint/config-conventional'],
+  parserPreset: 'conventional-changelog-atom',
+  formatter: '@commitlint/format',
   rules: {
-    "type-enum": [
+    'type-enum': [
       2,
-      "always",
-      [
-        "feat",
-        "fix",
-        "docs",
-        "style",
-        "refactor",
-        "perf",
-        "test",
-        "build",
-        "ci",
-        "chore",
-        "revert",
-      ],
+      'always',
+      ['feat', 'fix', 'docs', 'style', 'refactor', 'perf', 'test', 'build', 'ci', 'chore', 'revert'],
     ],
-    "scope-enum": [
+    'scope-enum': [
       2,
-      "always",
+      'always',
       [
-        "ui",
-        "ci",
-        "bug",
-        "deps",
-        "test",
-        "docs",
-        "auth",
-        "build",
-        "setup",
-        "other",
-        "style",
-        "config",
-        "release",
-        "feature",
-        "refactor",
+        'ui',
+        'ci',
+        'bug',
+        'deps',
+        'test',
+        'docs',
+        'auth',
+        'build',
+        'setup',
+        'other',
+        'style',
+        'config',
+        'release',
+        'feature',
+        'refactor',
       ],
     ],
   },

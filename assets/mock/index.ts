@@ -1,2 +1,2 @@
-export * from "./blog-content-mock";
-export * from "./suggested-friends-mock";
+export * from './blog-content-mock';
+export * from './suggested-friends-mock';

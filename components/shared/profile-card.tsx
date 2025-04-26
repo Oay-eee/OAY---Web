@@ -1,18 +1,19 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Cover } from "@/assets/images";
-import { useCurrentUser } from "@/hooks";
-import { IconBellFilled, IconBrandMessengerFilled } from "@tabler/icons-react";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+import { Cover } from '@/assets/images';
+import { useCurrentUser } from '@/hooks';
+import { IconBellFilled, IconBrandMessengerFilled } from '@tabler/icons-react';
 
 export const ProfileCard = () => {
   const currentUser = useCurrentUser();
   const router = useRouter();
 
   const handleNavigation = () => {
-    return router.push("/profile");
+    return router.push('/profile');
   };
 
   if (!currentUser?.image) return <h1>No image available</h1>;
@@ -39,29 +40,20 @@ export const ProfileCard = () => {
           </div>
         </div>
         <div className="mt-16 flex flex-col items-center">
-          <h4
-            className="text-xl font-bold text-white capitalize hover:underline"
-            onClick={handleNavigation}
-          >
+          <h4 className="text-xl font-bold text-white capitalize hover:underline" onClick={handleNavigation}>
             {currentUser?.name} 🇲🇬
           </h4>
           <p className="text-base font-normal text-zinc-400">@fiantsoharena</p>
         </div>
         <div className="mt-6 mb-3 flex gap-14 md:!gap-14">
-          <Link
-            href="/messages"
-            className="flex cursor-pointer flex-col items-center justify-center"
-          >
+          <Link href="/messages" className="flex cursor-pointer flex-col items-center justify-center">
             <IconBrandMessengerFilled />
           </Link>
           <div className="flex flex-col items-center justify-center">
             <p className="text-navy-700 text-2xl font-bold dark:text-white">9.7K</p>
             <p className="text-sm font-normal text-zinc-400">Friend(s)</p>
           </div>
-          <Link
-            href="/notifications"
-            className="flex cursor-pointer flex-col items-center justify-center"
-          >
+          <Link href="/notifications" className="flex cursor-pointer flex-col items-center justify-center">
             <IconBellFilled />
           </Link>
         </div>

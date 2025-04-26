@@ -1,13 +1,9 @@
-import Image from "next/image";
-import { blogContentMock } from "@/assets/mock";
-import {
-  IconClock,
-  IconMessage2,
-  IconMoodHappy,
-  IconThumbDown,
-  IconThumbUp,
-} from "@tabler/icons-react";
-import { FollowerPointerCard } from "../aceternity";
+import Image from 'next/image';
+
+import { blogContentMock } from '@/assets/mock';
+import { IconClock, IconMessage2, IconMoodHappy, IconThumbDown, IconThumbUp } from '@tabler/icons-react';
+
+import { FollowerPointerCard } from '../aceternity';
 
 export const BlogCard = ({ content }: { content: (typeof blogContentMock)[0] }) => (
   <FollowerPointerCard>

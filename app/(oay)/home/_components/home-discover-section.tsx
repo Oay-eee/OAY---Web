@@ -1,5 +1,6 @@
-import { IconCircleArrowDownFilled } from "@tabler/icons-react";
-import { AnimatedList } from "@/components/aceternity";
+import { IconCircleArrowDownFilled } from '@tabler/icons-react';
+
+import { AnimatedList } from '@/components/aceternity';
 
 export const DiscoverSection = () => (
   <div className="mt-5">

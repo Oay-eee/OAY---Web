@@ -1,13 +1,9 @@
-import { ReactNode } from "react";
-import {
-  IconBrandOffice,
-  IconEdit,
-  IconGenderMale,
-  IconMailbox,
-  IconPointFilled,
-} from "@tabler/icons-react";
-import { toast } from "sonner";
-import { Badge, Button } from "@/components/ui";
+import { ReactNode } from 'react';
+
+import { IconBrandOffice, IconEdit, IconGenderMale, IconMailbox, IconPointFilled } from '@tabler/icons-react';
+import { toast } from 'sonner';
+
+import { Badge, Button } from '@/components/ui';
 
 export function SidebarUserInfo() {
   return (
@@ -16,7 +12,7 @@ export function SidebarUserInfo() {
         <h2 className="my-5 text-center text-2xl font-bold">User information&#39;s</h2>
         <Button
           className="w-max cursor-pointer rounded-full"
-          onClick={() => toast.info("This functionality is under development.")}
+          onClick={() => toast.info('This functionality is under development.')}
         >
           <IconEdit />
           Edit
@@ -38,9 +34,7 @@ function UserInfoRow({ icon, label, value }: { icon: ReactNode; label: string; v
       <span className="flex items-center gap-2">
         {icon} {label}
       </span>
-      <Badge className="bg-chart-2/50 border-chart-2 border font-semibold text-white">
-        {value}
-      </Badge>
+      <Badge className="bg-chart-2/50 border-chart-2 border font-semibold text-white">{value}</Badge>
     </div>
   );
 }

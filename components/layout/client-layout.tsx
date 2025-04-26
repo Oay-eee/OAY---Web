@@ -1,11 +1,14 @@
-"use client";
+'use client';
 
-import { ReactNode, useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
-import { ThemeProvider } from "next-themes";
-import { ClipLoader } from "react-spinners";
-import { Toaster } from "@/components/ui";
+import { ReactNode, useEffect, useState } from 'react';
+
+import { usePathname } from 'next/navigation';
+
+import { AnimatePresence, motion } from 'framer-motion';
+import { ThemeProvider } from 'next-themes';
+import { ClipLoader } from 'react-spinners';
+
+import { Toaster } from '@/components/ui';
 
 export const ClientLayout = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();

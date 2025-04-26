@@ -1,7 +1,9 @@
-import Link from "next/link";
-import { User } from "next-auth";
-import { Skeleton } from "@/components/ui/skeleton";
-import { ExpandableCard } from "@/components/aceternity";
+import Link from 'next/link';
+
+import { User } from 'next-auth';
+
+import { ExpandableCard } from '@/components/aceternity';
+import { Skeleton } from '@/components/ui/skeleton';
 
 type SuggestedFriendsProps = {
   suggestedFriends: User[] | null;

@@ -1,8 +1,10 @@
-import { ReactNode } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { Madagascar } from "@/assets/images";
-import { IconAlertSquareRoundedFilled } from "@tabler/icons-react";
+import { ReactNode } from 'react';
+
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { Madagascar } from '@/assets/images';
+import { IconAlertSquareRoundedFilled } from '@tabler/icons-react';
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (

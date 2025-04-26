@@ -1,17 +1,11 @@
-"use client";
+'use client';
 
-import { MouseEventHandler, ReactNode, UIEvent, useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import {
-  IconBuilding,
-  IconMap,
-  IconNews,
-  IconPhone,
-  IconStar,
-  IconTag,
-  IconUsers,
-} from "@tabler/icons-react";
-import { motion, useInView } from "framer-motion";
+import { MouseEventHandler, ReactNode, UIEvent, useEffect, useRef, useState } from 'react';
+
+import Link from 'next/link';
+
+import { IconBuilding, IconMap, IconNews, IconPhone, IconStar, IconTag, IconUsers } from '@tabler/icons-react';
+import { motion, useInView } from 'framer-motion';
 
 type ItemType = {
   titre: string;
@@ -60,46 +54,46 @@ const AnimatedItem = ({ children, delay = 0, index, onMouseEnter, onClick }: Ani
 export const AnimatedList = ({
   items = [
     {
-      titre: "Popular news of the day",
+      titre: 'Popular news of the day',
       icon: <IconNews stroke={2} />,
-      href: "/news",
+      href: '/news',
     },
     {
-      titre: "Best contributors",
+      titre: 'Best contributors',
       icon: <IconStar stroke={2} />,
-      href: "/contributors",
+      href: '/contributors',
     },
     {
-      titre: "Important contacts",
+      titre: 'Important contacts',
       icon: <IconPhone stroke={2} />,
-      href: "/contacts",
+      href: '/contacts',
     },
     {
-      titre: "Available offers",
+      titre: 'Available offers',
       icon: <IconTag stroke={2} />,
-      href: "/offers",
+      href: '/offers',
     },
     {
-      titre: "Events participants",
+      titre: 'Events participants',
       icon: <IconUsers stroke={2} />,
-      href: "/events/participants",
+      href: '/events/participants',
     },
     {
-      titre: "Companies",
+      titre: 'Companies',
       icon: <IconBuilding stroke={2} />,
-      href: "/companies",
+      href: '/companies',
     },
     {
-      titre: "Stations by region",
+      titre: 'Stations by region',
       icon: <IconMap stroke={2} />,
-      href: "/stations",
+      href: '/stations',
     },
   ],
   onItemSelect,
   showGradients = true,
   enableArrowNavigation = true,
-  className = "",
-  itemClassName = "",
+  className = '',
+  itemClassName = '',
   initialSelectedIndex = -1,
 }: AnimatedListProps) => {
   const listRef = useRef<HTMLDivElement>(null);
@@ -119,15 +113,15 @@ export const AnimatedList = ({
     if (!enableArrowNavigation) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowDown" || (e.key === "Tab" && !e.shiftKey)) {
+      if (e.key === 'ArrowDown' || (e.key === 'Tab' && !e.shiftKey)) {
         e.preventDefault();
         setKeyboardNav(true);
         setSelectedIndex((prev) => Math.min(prev + 1, items.length - 1));
-      } else if (e.key === "ArrowUp" || (e.key === "Tab" && e.shiftKey)) {
+      } else if (e.key === 'ArrowUp' || (e.key === 'Tab' && e.shiftKey)) {
         e.preventDefault();
         setKeyboardNav(true);
         setSelectedIndex((prev) => Math.max(prev - 1, 0));
-      } else if (e.key === "Enter") {
+      } else if (e.key === 'Enter') {
         if (selectedIndex >= 0 && selectedIndex < items.length) {
           e.preventDefault();
           onItemSelect?.(items[selectedIndex], selectedIndex);
@@ -135,8 +129,8 @@ export const AnimatedList = ({
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [items, selectedIndex, onItemSelect, enableArrowNavigation]);
 
   useEffect(() => {
@@ -151,9 +145,9 @@ export const AnimatedList = ({
       const itemBottom = itemTop + selectedItem.offsetHeight;
 
       if (itemTop < scrollTop + margin) {
-        container.scrollTo({ top: itemTop - margin, behavior: "smooth" });
+        container.scrollTo({ top: itemTop - margin, behavior: 'smooth' });
       } else if (itemBottom > scrollTop + clientHeight - margin) {
-        container.scrollTo({ top: itemBottom - clientHeight + margin, behavior: "smooth" });
+        container.scrollTo({ top: itemBottom - clientHeight + margin, behavior: 'smooth' });
       }
     }
 
@@ -166,7 +160,7 @@ export const AnimatedList = ({
         ref={listRef}
         className="max-h-[400px] overflow-y-auto"
         onScroll={handleScroll}
-        style={{ scrollbarWidth: "thin", scrollbarColor: "#222 #060606" }}
+        style={{ scrollbarWidth: 'thin', scrollbarColor: '#222 #060606' }}
       >
         {items.map((item, index) => (
           <AnimatedItem
@@ -179,7 +173,7 @@ export const AnimatedList = ({
             <Link
               href={item.href}
               className={`block rounded-lg p-4 transition-colors ${
-                selectedIndex === index ? "bg-[#222]" : "bg-[#111]"
+                selectedIndex === index ? 'bg-[#222]' : 'bg-[#111]'
               } ${itemClassName}`}
             >
               <div className="flex items-center gap-3 text-white">

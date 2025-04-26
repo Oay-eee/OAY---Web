@@ -1,4 +1,4 @@
-import { prisma } from "@/lib";
+import { prisma } from '@/lib';
 
 export const getAccountByUserId = async (userId: string) => {
   try {

@@ -1,6 +1,8 @@
-import Link from "next/link";
-import { IconExclamationMark } from "@tabler/icons-react";
-import { TextGenerateEffect } from "@/components/aceternity";
+import Link from 'next/link';
+
+import { IconExclamationMark } from '@tabler/icons-react';
+
+import { TextGenerateEffect } from '@/components/aceternity';
 
 export default function AuthErrorPage() {
   return (
@@ -13,7 +15,7 @@ export default function AuthErrorPage() {
         <p>There is an authentication error</p>
       </div>
       <div className="mt-10 text-center text-sm">
-        Go back to{" "}
+        Go back to{' '}
         <Link href="/auth/login" className="underline underline-offset-4">
           Login page
         </Link>

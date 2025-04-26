@@ -1,8 +1,10 @@
-"use client";
+'use client';
 
-import { MouseEvent, ReactNode, useEffect, useRef, useState } from "react";
-import { AnimatePresence, useMotionValue } from "motion/react";
-import { cn } from "@/lib/utils";
+import { MouseEvent, ReactNode, useEffect, useRef, useState } from 'react';
+
+import { AnimatePresence, useMotionValue } from 'motion/react';
+
+import { cn } from '@/lib/utils';
 
 type FollowingPointerCardProps = {
   children: ReactNode;
@@ -44,7 +46,7 @@ export const FollowerPointerCard = ({ children, className }: FollowingPointerCar
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       ref={ref}
-      className={cn("relative", className)}
+      className={cn('relative', className)}
     >
       <AnimatePresence>{isInside}</AnimatePresence>
       {children}

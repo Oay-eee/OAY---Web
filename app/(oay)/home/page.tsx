@@ -1,13 +1,16 @@
-"use client";
+'use client';
 
-import { ChangeEvent, FormEvent, useCallback, useEffect, useMemo, useState } from "react";
-import { blogContentMock } from "@/assets/mock";
-import { useCurrentUser } from "@/hooks";
-import { User } from "next-auth";
-import { toast } from "sonner";
-import { PlaceholdersAndVanishInput } from "@/components/aceternity";
-import { BlogCard, ProfileCard } from "@/components/shared";
-import { DiscoverSection, Header, SuggestedFriends } from "@/app/(oay)/home/_components";
+import { ChangeEvent, FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
+
+import { blogContentMock } from '@/assets/mock';
+import { useCurrentUser } from '@/hooks';
+import { User } from 'next-auth';
+import { toast } from 'sonner';
+
+import { PlaceholdersAndVanishInput } from '@/components/aceternity';
+import { BlogCard, ProfileCard } from '@/components/shared';
+
+import { DiscoverSection, Header, SuggestedFriends } from '@/app/(oay)/home/_components';
 
 export default function Home() {
   const [suggestedFriends, setSuggestedFriends] = useState<User[] | null>([]);
@@ -15,11 +18,7 @@ export default function Home() {
   const currentUser = useCurrentUser();
 
   const placeholders = useMemo(
-    () => [
-      "Who is Fiantso Harena?",
-      "What is happening in your neighborhood?",
-      "How about the traffics?",
-    ],
+    () => ['Who is Fiantso Harena?', 'What is happening in your neighborhood?', 'How about the traffics?'],
     []
   );
 
@@ -29,7 +28,7 @@ export default function Home() {
 
   const handleFormSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("submitted");
+    console.log('submitted');
   }, []);
 
   useEffect(() => {
@@ -39,17 +38,17 @@ export default function Home() {
       setLoading(true);
 
       try {
-        const response = await fetch("/api/friends/suggested");
+        const response = await fetch('/api/friends/suggested');
         const data = await response.json();
 
         if (response.ok) {
           setSuggestedFriends(data);
         } else {
-          toast.error("Error fetching suggested friends");
+          toast.error('Error fetching suggested friends');
         }
       } catch (err) {
-        console.error("Error fetching suggested friends:", err);
-        toast.error("Error fetching suggested friends");
+        console.error('Error fetching suggested friends:', err);
+        toast.error('Error fetching suggested friends');
       } finally {
         setLoading(false);
       }

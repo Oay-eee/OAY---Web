@@ -1,13 +1,16 @@
-"use client";
+'use client';
 
-import { ReactNode, useEffect, useId, useRef, useState } from "react";
-import Image from "next/image";
-import { useOutsideClick } from "@/hooks";
-import { IconSend, IconUser, IconX } from "@tabler/icons-react";
-import { AnimatePresence, motion } from "motion/react";
-import { User } from "next-auth";
-import { toast } from "sonner";
-import { Button } from "@/components/ui";
+import { ReactNode, useEffect, useId, useRef, useState } from 'react';
+
+import Image from 'next/image';
+
+import { useOutsideClick } from '@/hooks';
+import { IconSend, IconUser, IconX } from '@tabler/icons-react';
+import { AnimatePresence, motion } from 'motion/react';
+import { User } from 'next-auth';
+import { toast } from 'sonner';
+
+import { Button } from '@/components/ui';
 
 type SuggestedFriendData = {
   id: string;
@@ -26,19 +29,19 @@ export const ExpandableCard = ({ data }: { data: User[] | null }) => {
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         setActive(false);
       }
     }
 
-    if (active && typeof active === "object") {
-      document.body.style.overflow = "hidden";
+    if (active && typeof active === 'object') {
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = 'auto';
     }
 
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
   }, [active]);
 
   useOutsideClick(ref, () => setActive(null));
@@ -46,7 +49,7 @@ export const ExpandableCard = ({ data }: { data: User[] | null }) => {
   return (
     <>
       <AnimatePresence>
-        {active && typeof active === "object" && (
+        {active && typeof active === 'object' && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -56,7 +59,7 @@ export const ExpandableCard = ({ data }: { data: User[] | null }) => {
         )}
       </AnimatePresence>
       <AnimatePresence>
-        {active && typeof active === "object" ? (
+        {active && typeof active === 'object' ? (
           <div className="fixed inset-0 z-[100] grid place-items-center">
             <motion.button
               key={`button-${active.title}-${id}`}
@@ -95,16 +98,10 @@ export const ExpandableCard = ({ data }: { data: User[] | null }) => {
               <div className="p-5">
                 <div className="flex items-start justify-between p-4 text-center">
                   <div className="">
-                    <motion.h3
-                      layoutId={`title-${active.title}-${id}`}
-                      className="font-bold text-zinc-100"
-                    >
+                    <motion.h3 layoutId={`title-${active.title}-${id}`} className="font-bold text-zinc-100">
                       {active.title}
                     </motion.h3>
-                    <motion.p
-                      layoutId={`description-${active.description}-${id}`}
-                      className="dark:text-neutral-400"
-                    >
+                    <motion.p layoutId={`description-${active.description}-${id}`} className="dark:text-neutral-400">
                       {active.description}
                     </motion.p>
                   </div>
@@ -113,7 +110,7 @@ export const ExpandableCard = ({ data }: { data: User[] | null }) => {
               <div className="flex w-full justify-center gap-10">
                 <Button
                   onClick={() => {
-                    toast.success("Request sent successfully");
+                    toast.success('Request sent successfully');
                     setActive(false);
                   }}
                   size="lg"
@@ -139,12 +136,12 @@ export const ExpandableCard = ({ data }: { data: User[] | null }) => {
             onClick={() =>
               setActive({
                 id: user.id as string,
-                title: (user.name ?? "Unknown") as string,
-                description: (user.email ?? "No description") as string,
-                image: (user.image ?? "/default-avatar.png") as string,
+                title: (user.name ?? 'Unknown') as string,
+                description: (user.email ?? 'No description') as string,
+                image: (user.image ?? '/default-avatar.png') as string,
                 ctaLink: `/profile/${user.id}`,
-                ctaText: "View Profile",
-                content: `This is ${user.name ?? "a user"} — maybe add more profile info here later.`,
+                ctaText: 'View Profile',
+                content: `This is ${user.name ?? 'a user'} — maybe add more profile info here later.`,
               })
             }
             className="flex cursor-pointer flex-col items-center justify-between rounded-xl p-4 hover:bg-neutral-800 md:flex-row"
@@ -154,8 +151,8 @@ export const ExpandableCard = ({ data }: { data: User[] | null }) => {
                 <Image
                   width={100}
                   height={100}
-                  src={user.image ?? "/default-avatar.png"}
-                  alt={user.name ?? "User"}
+                  src={user.image ?? '/default-avatar.png'}
+                  alt={user.name ?? 'User'}
                   className="h-40 w-40 rounded-lg object-cover object-top md:h-14 md:w-14"
                 />
               </motion.div>
@@ -164,13 +161,13 @@ export const ExpandableCard = ({ data }: { data: User[] | null }) => {
                   layoutId={`title-${user.id}-${id}`}
                   className="text-center font-medium text-neutral-800 md:text-left dark:text-neutral-200"
                 >
-                  {user.name ?? "Unnamed User"}
+                  {user.name ?? 'Unnamed User'}
                 </motion.h3>
                 <motion.p
                   layoutId={`description-${user.id}-${id}`}
                   className="text-center text-sm text-ellipsis text-neutral-600 md:text-left dark:text-neutral-400"
                 >
-                  {user.email ?? "No email"}
+                  {user.email ?? 'No email'}
                 </motion.p>
               </div>
             </div>

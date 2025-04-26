@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useSession } from "next-auth/react";
+import { useSession } from 'next-auth/react';
 
 /**
  * Custom hook to retrieve the current authenticated user from the NextAuth session.

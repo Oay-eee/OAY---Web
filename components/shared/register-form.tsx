@@ -1,23 +1,17 @@
-"use client";
+'use client';
 
-import { useState, useTransition } from "react";
-import { registerAction } from "@/actions";
-import { RegisterSchema } from "@/schemas";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { FormError, FormSuccess } from "@/components/shared";
-import {
-  Button,
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  Input,
-} from "@/components/ui";
-import { cn } from "@/lib/utils";
+import { useState, useTransition } from 'react';
+
+import { registerAction } from '@/actions';
+import { RegisterSchema } from '@/schemas';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+
+import { FormError, FormSuccess } from '@/components/shared';
+import { Button, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from '@/components/ui';
+
+import { cn } from '@/lib/utils';
 
 export const RegisterForm = () => {
   const [isPending, startTransition] = useTransition();
@@ -27,9 +21,9 @@ export const RegisterForm = () => {
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
-      email: "",
-      password: "",
-      name: "",
+      email: '',
+      password: '',
+      name: '',
     },
   });
 
@@ -43,13 +37,13 @@ export const RegisterForm = () => {
           setError(data.error);
           setSuccess(data.success);
         })
-        .catch(() => setError("An unexpected error occurred"));
+        .catch(() => setError('An unexpected error occurred'));
     });
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className={cn("grid gap-6")} noValidate>
+      <form onSubmit={form.handleSubmit(handleSubmit)} className={cn('grid gap-6')} noValidate>
         <FormField
           control={form.control}
           name="name"
@@ -57,13 +51,7 @@ export const RegisterForm = () => {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input
-                  {...field}
-                  type="text"
-                  disabled={isPending}
-                  placeholder="John Doe"
-                  autoComplete="name"
-                />
+                <Input {...field} type="text" disabled={isPending} placeholder="John Doe" autoComplete="name" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -116,9 +104,7 @@ export const RegisterForm = () => {
         </Button>
 
         <div className="relative text-center text-sm">
-          <span className="bg-background text-muted-foreground relative z-10 px-2">
-            Or continue with
-          </span>
+          <span className="bg-background text-muted-foreground relative z-10 px-2">Or continue with</span>
           <div className="after:border-border absolute inset-0 top-1/2 z-0 border-t" />
         </div>
       </form>

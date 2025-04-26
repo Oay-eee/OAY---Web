@@ -1,8 +1,8 @@
-import authConfig from "@/auth.config";
-import { getAccountByUserId, getTwoFactorConfirmationByUserId, getUserById } from "@/data";
-import { prisma } from "@/lib";
-import { PrismaAdapter } from "@auth/prisma-adapter";
-import NextAuth from "next-auth";
+import authConfig from '@/auth.config';
+import { getAccountByUserId, getTwoFactorConfirmationByUserId, getUserById } from '@/data';
+import { prisma } from '@/lib';
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import NextAuth from 'next-auth';
 
 export const {
   handlers: { GET, POST },
@@ -11,8 +11,8 @@ export const {
   signOut,
 } = NextAuth({
   pages: {
-    signIn: "/auth/login",
-    error: "/auth/error",
+    signIn: '/auth/login',
+    error: '/auth/error',
   },
   events: {
     async linkAccount({ user, account, profile }) {
@@ -46,9 +46,9 @@ export const {
   },
   callbacks: {
     async signIn({ user, account }) {
-      if (account?.provider !== "credentials") return true;
+      if (account?.provider !== 'credentials') return true;
 
-      if (!user.id) throw new Error("User ID is undefined");
+      if (!user.id) throw new Error('User ID is undefined');
       const existingUser = await getUserById(user.id);
 
       if (!existingUser?.emailVerified) return false;
@@ -96,6 +96,6 @@ export const {
     },
   },
   adapter: PrismaAdapter(prisma),
-  session: { strategy: "jwt" },
+  session: { strategy: 'jwt' },
   ...authConfig,
 });

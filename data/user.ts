@@ -1,4 +1,4 @@
-import { prisma } from "@/lib";
+import { prisma } from '@/lib';
 
 export const getUserByEmail = async (email: string) => {
   try {
@@ -32,7 +32,7 @@ export const getSuggestedFriends = async (currentUserId: string | undefined) => 
       },
     });
   } catch (err) {
-    console.error("Error fetching suggested friends:", err);
+    console.error('Error fetching suggested friends:', err);
     return [];
   }
 };

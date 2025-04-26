@@ -1,16 +1,10 @@
-"use client";
+'use client';
 
-import {
-  ChangeEvent,
-  FormEvent,
-  KeyboardEvent,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { ChangeEvent, FormEvent, KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
+
+import { AnimatePresence, motion } from 'framer-motion';
+
+import { cn } from '@/lib/utils';
 
 type Particle = {
   x: number;
@@ -29,12 +23,8 @@ const CANVAS_SIZE = 800;
 const ANIMATION_INTERVAL = 3000;
 const PARTICLE_STEP = 8;
 
-export const PlaceholdersAndVanishInput = ({
-  placeholders,
-  onChange,
-  onSubmit,
-}: PlaceholdersAndVanishInputProps) => {
-  const [value, setValue] = useState("");
+export const PlaceholdersAndVanishInput = ({ placeholders, onChange, onSubmit }: PlaceholdersAndVanishInputProps) => {
+  const [value, setValue] = useState('');
   const [currentPlaceholder, setCurrentPlaceholder] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -49,7 +39,7 @@ export const PlaceholdersAndVanishInput = ({
   }, [placeholders.length]);
 
   const handleVisibilityChange = useCallback(() => {
-    if (document.visibilityState === "visible") {
+    if (document.visibilityState === 'visible') {
       startPlaceholderAnimation();
     } else if (intervalRef.current) {
       clearInterval(intervalRef.current);
@@ -59,11 +49,11 @@ export const PlaceholdersAndVanishInput = ({
 
   useEffect(() => {
     startPlaceholderAnimation();
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, [handleVisibilityChange, startPlaceholderAnimation]);
 
@@ -72,7 +62,7 @@ export const PlaceholdersAndVanishInput = ({
     const input = inputRef.current;
     if (!canvas || !input) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     canvas.width = CANVAS_SIZE;
@@ -80,9 +70,9 @@ export const PlaceholdersAndVanishInput = ({
     ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
     const styles = getComputedStyle(input);
-    const fontSize = parseFloat(styles.getPropertyValue("font-size"));
+    const fontSize = parseFloat(styles.getPropertyValue('font-size'));
     ctx.font = `${fontSize * 2}px ${styles.fontFamily}`;
-    ctx.fillStyle = "#FFF";
+    ctx.fillStyle = '#FFF';
     ctx.fillText(value, 16, 40);
 
     const imageData = ctx.getImageData(0, 0, CANVAS_SIZE, CANVAS_SIZE);
@@ -93,11 +83,7 @@ export const PlaceholdersAndVanishInput = ({
       const rowIndex = 4 * y * CANVAS_SIZE;
       for (let x = 0; x < CANVAS_SIZE; x++) {
         const pixelIndex = rowIndex + 4 * x;
-        if (
-          pixelData[pixelIndex] !== 0 &&
-          pixelData[pixelIndex + 1] !== 0 &&
-          pixelData[pixelIndex + 2] !== 0
-        ) {
+        if (pixelData[pixelIndex] !== 0 && pixelData[pixelIndex + 1] !== 0 && pixelData[pixelIndex + 2] !== 0) {
           newParticles.push({
             x,
             y,
@@ -120,7 +106,7 @@ export const PlaceholdersAndVanishInput = ({
   const animateParticles = useCallback((startX: number) => {
     const animateFrame = (pos: number) => {
       requestAnimationFrame(() => {
-        const ctx = canvasRef.current?.getContext("2d");
+        const ctx = canvasRef.current?.getContext('2d');
         if (!ctx) return;
 
         ctx.clearRect(pos, 0, CANVAS_SIZE, CANVAS_SIZE);
@@ -145,7 +131,7 @@ export const PlaceholdersAndVanishInput = ({
         if (remainingParticles.length > 0) {
           animateFrame(pos - PARTICLE_STEP);
         } else {
-          setValue("");
+          setValue('');
           setIsAnimating(false);
         }
       });
@@ -171,7 +157,7 @@ export const PlaceholdersAndVanishInput = ({
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && !isAnimating) {
+    if (e.key === 'Enter' && !isAnimating) {
       vanishAndSubmit();
     }
   };
@@ -186,16 +172,16 @@ export const PlaceholdersAndVanishInput = ({
   return (
     <form
       className={cn(
-        "relative mx-auto h-12 w-full max-w-xl overflow-hidden rounded-full bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),_0px_1px_0px_0px_rgba(25,28,33,0.02),_0px_0px_0px_1px_rgba(25,28,33,0.08)] transition duration-200 dark:bg-zinc-800",
-        value && "bg-gray-50"
+        'relative mx-auto h-12 w-full max-w-xl overflow-hidden rounded-full bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),_0px_1px_0px_0px_rgba(25,28,33,0.02),_0px_0px_0px_1px_rgba(25,28,33,0.08)] transition duration-200 dark:bg-zinc-800',
+        value && 'bg-gray-50'
       )}
       onSubmit={handleSubmit}
     >
       <canvas
         ref={canvasRef}
         className={cn(
-          "pointer-events-none absolute top-[20%] left-2 origin-top-left scale-50 transform pr-20 text-base invert filter sm:left-8 dark:invert-0",
-          isAnimating ? "opacity-100" : "opacity-0"
+          'pointer-events-none absolute top-[20%] left-2 origin-top-left scale-50 transform pr-20 text-base invert filter sm:left-8 dark:invert-0',
+          isAnimating ? 'opacity-100' : 'opacity-0'
         )}
       />
       <input
@@ -205,8 +191,8 @@ export const PlaceholdersAndVanishInput = ({
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
         className={cn(
-          "relative z-50 h-full w-full rounded-full border-none bg-transparent pr-20 pl-4 text-sm text-black focus:ring-0 focus:outline-none sm:pl-10 sm:text-base dark:text-white",
-          isAnimating && "text-transparent dark:text-transparent"
+          'relative z-50 h-full w-full rounded-full border-none bg-transparent pr-20 pl-4 text-sm text-black focus:ring-0 focus:outline-none sm:pl-10 sm:text-base dark:text-white',
+          isAnimating && 'text-transparent dark:text-transparent'
         )}
       />
       <button
@@ -229,9 +215,9 @@ export const PlaceholdersAndVanishInput = ({
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
           <motion.path
             d="M5 12l14 0"
-            initial={{ strokeDasharray: "50%", strokeDashoffset: "50%" }}
-            animate={{ strokeDashoffset: value ? 0 : "50%" }}
-            transition={{ duration: 0.3, ease: "linear" }}
+            initial={{ strokeDasharray: '50%', strokeDashoffset: '50%' }}
+            animate={{ strokeDashoffset: value ? 0 : '50%' }}
+            transition={{ duration: 0.3, ease: 'linear' }}
           />
           <path d="M13 18l6 -6" />
           <path d="M13 6l6 6" />
@@ -245,7 +231,7 @@ export const PlaceholdersAndVanishInput = ({
               initial={{ y: 5, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -15, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "linear" }}
+              transition={{ duration: 0.3, ease: 'linear' }}
               className="w-[calc(100%-2rem)] truncate pl-4 text-left text-sm font-normal text-neutral-500 sm:pl-12 sm:text-base dark:text-zinc-500"
             >
               {placeholders[currentPlaceholder]}

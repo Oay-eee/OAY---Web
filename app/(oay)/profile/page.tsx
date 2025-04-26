@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import { blogContentMock } from "@/assets/mock";
-import { useCurrentUser } from "@/hooks";
-import { BlogCard, SidebarProfile, SidebarUserInfo } from "@/components/shared";
+import { blogContentMock } from '@/assets/mock';
+import { useCurrentUser } from '@/hooks';
+
+import { BlogCard, SidebarProfile, SidebarUserInfo } from '@/components/shared';
 
 export default function Home() {
   const currentUser = useCurrentUser();
