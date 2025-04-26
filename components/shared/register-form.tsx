@@ -6,7 +6,7 @@ import { RegisterSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { FormError, FormSuccess, Social } from "@/components/shared";
+import { FormError, FormSuccess } from "@/components/shared";
 import {
   Button,
   Form,
@@ -120,9 +120,6 @@ export const RegisterForm = () => {
             Or continue with
           </span>
           <div className="after:border-border absolute inset-0 top-1/2 z-0 border-t" />
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <Social />
         </div>
       </form>
     </Form>
