@@ -3,16 +3,16 @@
 import { useEffect, useId, useRef, useState } from 'react';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
+import { cancelFriendRequest, sendFriendRequest } from '@/data';
 import { useCurrentUser, useOutsideClick } from '@/hooks';
 import { IconSend, IconUser, IconX } from '@tabler/icons-react';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { User } from 'next-auth';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui';
-
-import { sendFriendRequest } from '@/data/friends';
 
 type SuggestedFriendData = {
   id: string;
@@ -29,19 +29,21 @@ type ExpandableCardProps = {
 
 export const ExpandableCard = ({ data }: ExpandableCardProps) => {
   const [active, setActive] = useState<SuggestedFriendData | null>(null);
+  const [isRequestSent, setIsRequestSent] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const ref = useRef<HTMLDivElement>(null);
   const id = useId();
   const currentUser = useCurrentUser();
+  const router = useRouter();
 
   const closeModal = () => setActive(null);
-
   useOutsideClick(ref, closeModal);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') closeModal();
     };
-
     document.body.style.overflow = active ? 'hidden' : 'auto';
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
@@ -49,13 +51,37 @@ export const ExpandableCard = ({ data }: ExpandableCardProps) => {
 
   const handleSendRequest = async () => {
     if (!currentUser?.id || !active?.id) return;
-
+    setIsLoading(true);
     try {
       await sendFriendRequest(currentUser.id, active.id);
       toast.success('Request sent successfully');
+      setIsRequestSent(true);
     } catch {
       toast.error('Failed to send request');
     } finally {
+      setIsLoading(false);
+      closeModal();
+    }
+  };
+
+  const handleCancelRequest = async () => {
+    if (!currentUser?.id || !active?.id) return;
+    setIsLoading(true);
+    try {
+      await cancelFriendRequest(currentUser.id, active.id);
+      toast.success('Request cancelled successfully');
+      setIsRequestSent(false);
+    } catch {
+      toast.error('Failed to cancel request');
+    } finally {
+      setIsLoading(false);
+      closeModal();
+    }
+  };
+
+  const handleViewProfile = () => {
+    if (active?.ctaLink) {
+      router.push(active.ctaLink);
       closeModal();
     }
   };
@@ -118,16 +144,31 @@ export const ExpandableCard = ({ data }: ExpandableCardProps) => {
                     {active.email}
                   </motion.p>
                 </div>
-                <div className="flex w-full justify-center gap-10">
+                <div className="flex w-full justify-center gap-4">
                   <Button
-                    onClick={handleSendRequest}
+                    onClick={isRequestSent ? handleCancelRequest : handleSendRequest}
                     size="lg"
-                    className="bg-chart-2 hover:bg-chart-2/90 cursor-pointer rounded-full font-semibold text-white"
+                    disabled={isLoading}
+                    className={`cursor-pointer rounded-full font-semibold text-white ${
+                      isRequestSent ? 'bg-destructive hover:bg-destructive/90' : 'bg-chart-2 hover:bg-chart-2/90'
+                    }`}
                   >
-                    <IconSend />
-                    Send request
+                    {isRequestSent ? (
+                      <>
+                        <IconX /> Cancel Request
+                      </>
+                    ) : (
+                      <>
+                        <IconSend /> Send Request
+                      </>
+                    )}
                   </Button>
-                  <Button size="lg" className="cursor-pointer rounded-full font-semibold">
+                  <Button
+                    onClick={handleViewProfile}
+                    size="lg"
+                    disabled={isLoading}
+                    className="cursor-pointer rounded-full font-semibold"
+                  >
                     <IconUser />
                     View Profile
                   </Button>
@@ -137,6 +178,7 @@ export const ExpandableCard = ({ data }: ExpandableCardProps) => {
           </>
         )}
       </AnimatePresence>
+
       <ul className="mx-auto w-full max-w-2xl gap-4">
         {data?.map((user) => (
           <motion.div

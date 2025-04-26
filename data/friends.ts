@@ -26,3 +26,19 @@ export const sendFriendRequest = async (currentUserId: string, targetUserId: str
     console.error('Error when sending friend request', error);
   }
 };
+
+export async function cancelFriendRequest(senderId: string, receiverId: string) {
+  try {
+    return await prisma.friends.delete({
+      where: {
+        senderId_receiverId: {
+          senderId,
+          receiverId,
+        },
+      },
+    });
+  } catch (error) {
+    console.error('Cancel request error:', error);
+    return { success: false };
+  }
+}
