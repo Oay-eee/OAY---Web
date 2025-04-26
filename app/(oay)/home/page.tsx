@@ -69,13 +69,11 @@ export default function Home() {
           <ProfileCard />
           <DiscoverSection />
         </aside>
-
         <section className="scrollbar-hide space-y-10 overflow-y-auto p-5 pb-30">
           {blogContentMock.map((content, index) => (
             <BlogCard key={index} content={content} />
           ))}
         </section>
-
         <aside className="scrollbar-hide hidden overflow-y-auto lg:block">
           <SuggestedFriends suggestedFriends={suggestedFriends} loading={loading} />
         </aside>

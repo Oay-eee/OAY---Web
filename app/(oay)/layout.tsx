@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { IconBrandGithub, IconBrandX, IconHome, IconPlus, IconUser } from "@tabler/icons-react";
-import { BackgroundBeams, FloatingDock } from "@/components/aceternity";
+import { FloatingDock } from "@/components/aceternity";
 
 export default function OayLayout({ children }: { children: ReactNode }) {
   const links = [
@@ -35,7 +35,6 @@ export default function OayLayout({ children }: { children: ReactNode }) {
     <main className="relative flex h-screen w-full flex-col items-center justify-center gap-5">
       {children}
       <FloatingDock items={links} />
-      <BackgroundBeams className="z-[-999]" />
     </main>
   );
 }

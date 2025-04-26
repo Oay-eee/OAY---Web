@@ -1,5 +1,4 @@
 export * from "./animated-list";
-export * from "./background-beams";
 export * from "./expandable-card";
 export * from "./floating-dock";
 export * from "./following-pointer-card";
