@@ -1,10 +1,10 @@
 'use client';
 
-import { ReactNode, useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 
 import Image from 'next/image';
 
-import { useOutsideClick } from '@/hooks';
+import { useCurrentUser, useOutsideClick } from '@/hooks';
 import { IconSend, IconUser, IconX } from '@tabler/icons-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { User } from 'next-auth';
@@ -12,14 +12,15 @@ import { toast } from 'sonner';
 
 import { Button } from '@/components/ui';
 
+import { sendFriendRequest } from '@/data/friends';
+
 type SuggestedFriendData = {
   id: string;
-  title: string;
-  description: string;
+  name: string;
+  email: string;
   image: string;
   ctaLink: string;
   ctaText: string;
-  content: ReactNode | string;
 };
 
 type ExpandableCardProps = {
@@ -30,6 +31,7 @@ export const ExpandableCard = ({ data }: ExpandableCardProps) => {
   const [active, setActive] = useState<SuggestedFriendData | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const id = useId();
+  const currentUser = useCurrentUser();
 
   const closeModal = () => setActive(null);
 
@@ -45,20 +47,27 @@ export const ExpandableCard = ({ data }: ExpandableCardProps) => {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [active]);
 
-  const handleSendRequest = () => {
-    toast.success('Request sent successfully');
-    closeModal();
+  const handleSendRequest = async () => {
+    if (!currentUser?.id || !active?.id) return;
+
+    try {
+      await sendFriendRequest(currentUser.id, active.id);
+      toast.success('Request sent successfully');
+    } catch {
+      toast.error('Failed to send request');
+    } finally {
+      closeModal();
+    }
   };
 
   const openModal = (user: User) => {
     setActive({
       id: user.id!,
-      title: user.name ?? 'Unknown',
-      description: user.email ?? 'No description',
+      name: user.name ?? 'Unknown',
+      email: user.email ?? 'No description',
       image: user.image ?? '/default-avatar.png',
       ctaLink: `/profile/${user.id}`,
       ctaText: 'View Profile',
-      content: `This is ${user.name ?? 'a user'}.`,
     });
   };
 
@@ -86,30 +95,27 @@ export const ExpandableCard = ({ data }: ExpandableCardProps) => {
               </motion.button>
               <motion.div
                 ref={ref}
-                layoutId={`card-${active.title}-${id}`}
+                layoutId={`card-${active.name}-${id}`}
                 className="flex h-full w-full max-w-[500px] flex-col items-center overflow-hidden rounded-3xl p-10 md:h-fit md:max-h-[90%] dark:bg-neutral-900"
               >
                 <motion.div
-                  layoutId={`image-${active.title}-${id}`}
+                  layoutId={`image-${active.name}-${id}`}
                   className="dark:!border-navy-700 flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400"
                 >
                   <Image
                     className="h-full w-full rounded-full"
                     src={active.image}
-                    alt={active.title}
+                    alt={active.name}
                     width={100}
                     height={100}
                   />
                 </motion.div>
                 <div className="space-y-2 p-5 text-center">
-                  <motion.h3 layoutId={`title-${active.title}-${id}`} className="font-bold text-zinc-100">
-                    {active.title}
+                  <motion.h3 layoutId={`title-${active.name}-${id}`} className="font-bold text-zinc-100">
+                    {active.name}
                   </motion.h3>
-                  <motion.p
-                    layoutId={`description-${active.description}-${id}`}
-                    className="text-sm dark:text-neutral-400"
-                  >
-                    {active.description}
+                  <motion.p layoutId={`description-${active.email}-${id}`} className="text-sm dark:text-neutral-400">
+                    {active.email}
                   </motion.p>
                 </div>
                 <div className="flex w-full justify-center gap-10">
