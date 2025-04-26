@@ -89,20 +89,26 @@ export const ExpandableCard = ({ data }: ExpandableCardProps) => {
                 layoutId={`card-${active.title}-${id}`}
                 className="flex h-full w-full max-w-[500px] flex-col items-center overflow-hidden rounded-3xl p-10 md:h-fit md:max-h-[90%] dark:bg-neutral-900"
               >
-                <motion.div layoutId={`image-${active.title}-${id}`} className="h-50 w-50">
+                <motion.div
+                  layoutId={`image-${active.title}-${id}`}
+                  className="dark:!border-navy-700 flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400"
+                >
                   <Image
-                    width={200}
-                    height={200}
+                    className="h-full w-full rounded-full"
                     src={active.image}
                     alt={active.title}
-                    className="w-full rounded-full object-cover object-top"
+                    width={100}
+                    height={100}
                   />
                 </motion.div>
-                <div className="p-5 text-center">
+                <div className="space-y-2 p-5 text-center">
                   <motion.h3 layoutId={`title-${active.title}-${id}`} className="font-bold text-zinc-100">
                     {active.title}
                   </motion.h3>
-                  <motion.p layoutId={`description-${active.description}-${id}`} className="dark:text-neutral-400">
+                  <motion.p
+                    layoutId={`description-${active.description}-${id}`}
+                    className="text-sm dark:text-neutral-400"
+                  >
                     {active.description}
                   </motion.p>
                 </div>
