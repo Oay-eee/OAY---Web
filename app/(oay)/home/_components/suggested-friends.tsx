@@ -31,7 +31,7 @@ export const SuggestedFriends = ({ suggestedFriends, loading }: SuggestedFriends
         View more
       </Link>
     </div>
-    {!loading ? (
+    {loading ? (
       <>
         {Array.from({ length: 5 }).map((_, index) => (
           <SkeletonLoading key={`skeleton-${index}`} />

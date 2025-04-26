@@ -22,128 +22,115 @@ type SuggestedFriendData = {
   content: ReactNode | string;
 };
 
-export const ExpandableCard = ({ data }: { data: User[] | null }) => {
-  const [active, setActive] = useState<SuggestedFriendData | boolean | null>(null);
+type ExpandableCardProps = {
+  data: User[] | null;
+};
+
+export const ExpandableCard = ({ data }: ExpandableCardProps) => {
+  const [active, setActive] = useState<SuggestedFriendData | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const id = useId();
 
+  const closeModal = () => setActive(null);
+
+  useOutsideClick(ref, closeModal);
+
   useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
-        setActive(false);
-      }
-    }
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') closeModal();
+    };
 
-    if (active && typeof active === 'object') {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-
+    document.body.style.overflow = active ? 'hidden' : 'auto';
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [active]);
 
-  useOutsideClick(ref, () => setActive(null));
+  const handleSendRequest = () => {
+    toast.success('Request sent successfully');
+    closeModal();
+  };
+
+  const openModal = (user: User) => {
+    setActive({
+      id: user.id!,
+      title: user.name ?? 'Unknown',
+      description: user.email ?? 'No description',
+      image: user.image ?? '/default-avatar.png',
+      ctaLink: `/profile/${user.id}`,
+      ctaText: 'View Profile',
+      content: `This is ${user.name ?? 'a user'}.`,
+    });
+  };
 
   return (
     <>
       <AnimatePresence>
-        {active && typeof active === 'object' && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 h-full w-full bg-black/90"
-          />
-        )}
-      </AnimatePresence>
-      <AnimatePresence>
-        {active && typeof active === 'object' ? (
-          <div className="fixed inset-0 z-[100] grid place-items-center">
-            <motion.button
-              key={`button-${active.title}-${id}`}
-              layout
-              initial={{
-                opacity: 0,
-              }}
-              animate={{
-                opacity: 1,
-              }}
-              exit={{
-                opacity: 0,
-                transition: {
-                  duration: 0.05,
-                },
-              }}
-              className="absolute top-2 right-2 flex h-6 w-6 items-center justify-center rounded-full bg-white lg:hidden"
-              onClick={() => setActive(null)}
-            >
-              <IconX size={20} />
-            </motion.button>
+        {active && (
+          <>
             <motion.div
-              layoutId={`card-${active.title}-${id}`}
-              ref={ref}
-              className="flex h-full w-full max-w-[500px] flex-col items-center overflow-hidden rounded-3xl p-10 md:h-fit md:max-h-[90%] dark:bg-neutral-900"
-            >
-              <motion.div layoutId={`image-${active.title}-${id}`} className="h-50 w-50">
-                <Image
-                  width={200}
-                  height={200}
-                  src={active.image}
-                  alt={active.title}
-                  className="w-full rounded-full object-cover object-top"
-                />
-              </motion.div>
-              <div className="p-5">
-                <div className="flex items-start justify-between p-4 text-center">
-                  <div className="">
-                    <motion.h3 layoutId={`title-${active.title}-${id}`} className="font-bold text-zinc-100">
-                      {active.title}
-                    </motion.h3>
-                    <motion.p layoutId={`description-${active.description}-${id}`} className="dark:text-neutral-400">
-                      {active.description}
-                    </motion.p>
-                  </div>
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 h-full w-full bg-black/90"
+            />
+            <div className="fixed inset-0 z-[100] grid place-items-center">
+              <motion.button
+                layout
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, transition: { duration: 0.05 } }}
+                className="absolute top-2 right-2 flex h-6 w-6 items-center justify-center rounded-full bg-white lg:hidden"
+                onClick={closeModal}
+              >
+                <IconX size={20} />
+              </motion.button>
+              <motion.div
+                ref={ref}
+                layoutId={`card-${active.title}-${id}`}
+                className="flex h-full w-full max-w-[500px] flex-col items-center overflow-hidden rounded-3xl p-10 md:h-fit md:max-h-[90%] dark:bg-neutral-900"
+              >
+                <motion.div layoutId={`image-${active.title}-${id}`} className="h-50 w-50">
+                  <Image
+                    width={200}
+                    height={200}
+                    src={active.image}
+                    alt={active.title}
+                    className="w-full rounded-full object-cover object-top"
+                  />
+                </motion.div>
+                <div className="p-5 text-center">
+                  <motion.h3 layoutId={`title-${active.title}-${id}`} className="font-bold text-zinc-100">
+                    {active.title}
+                  </motion.h3>
+                  <motion.p layoutId={`description-${active.description}-${id}`} className="dark:text-neutral-400">
+                    {active.description}
+                  </motion.p>
                 </div>
-              </div>
-              <div className="flex w-full justify-center gap-10">
-                <Button
-                  onClick={() => {
-                    toast.success('Request sent successfully');
-                    setActive(false);
-                  }}
-                  size="lg"
-                  className="bg-chart-2 hover:bg-chart-2/90 cursor-pointer rounded-full font-semibold text-white"
-                >
-                  <IconSend />
-                  Send request
-                </Button>
-                <Button size="lg" className="cursor-pointer rounded-full font-semibold">
-                  <IconUser />
-                  View Profile
-                </Button>
-              </div>
-            </motion.div>
-          </div>
-        ) : null}
+                <div className="flex w-full justify-center gap-10">
+                  <Button
+                    onClick={handleSendRequest}
+                    size="lg"
+                    className="bg-chart-2 hover:bg-chart-2/90 cursor-pointer rounded-full font-semibold text-white"
+                  >
+                    <IconSend />
+                    Send request
+                  </Button>
+                  <Button size="lg" className="cursor-pointer rounded-full font-semibold">
+                    <IconUser />
+                    View Profile
+                  </Button>
+                </div>
+              </motion.div>
+            </div>
+          </>
+        )}
       </AnimatePresence>
       <ul className="mx-auto w-full max-w-2xl gap-4">
         {data?.map((user) => (
           <motion.div
-            layoutId={`card-${user.id}-${id}`}
             key={`card-${user.id}-${id}`}
-            onClick={() =>
-              setActive({
-                id: user.id as string,
-                title: (user.name ?? 'Unknown') as string,
-                description: (user.email ?? 'No description') as string,
-                image: (user.image ?? '/default-avatar.png') as string,
-                ctaLink: `/profile/${user.id}`,
-                ctaText: 'View Profile',
-                content: `This is ${user.name ?? 'a user'} — maybe add more profile info here later.`,
-              })
-            }
+            layoutId={`card-${user.id}-${id}`}
+            onClick={() => openModal(user)}
             className="flex cursor-pointer flex-col items-center justify-between rounded-xl p-4 hover:bg-neutral-800 md:flex-row"
           >
             <div className="flex flex-col gap-4 md:flex-row">
