@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 
-import { receivedFriendRequest } from '@/data';
+import { acceptFriendRequest, declineFriendRequest, receivedFriendRequest } from '@/data';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import { ClipLoader } from 'react-spinners';
+import { toast } from 'sonner';
 
 import { Button, Card, H4 } from '@/components/ui';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -43,6 +44,25 @@ export const FriendRequest = ({ currentUserId }: FriendRequestProps) => {
     })();
   }, [currentUserId]);
 
+  const handleAccept = async (requestId: string) => {
+    const res = await acceptFriendRequest(requestId);
+    if (res.success) {
+      setRequests((prev) => prev.filter((r) => r.id !== requestId));
+      toast.success('Friend request accepted!');
+    } else {
+      toast.error('Something went wrong.');
+    }
+  };
+  const handleDecline = async (requestId: string) => {
+    const res = await declineFriendRequest(requestId);
+    if (res.success) {
+      setRequests((prev) => prev.filter((r) => r.id !== requestId));
+      toast.success('Friend request declined.');
+    } else {
+      toast.error('Something went wrong.');
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center p-4">
@@ -75,10 +95,16 @@ export const FriendRequest = ({ currentUserId }: FriendRequestProps) => {
             <span className="text-sm text-zinc-400">{request.sender.pseudo}</span>
           </div>
           <div className="flex gap-2">
-            <Button className="bg-chart-2/80 cursor-pointer rounded-full text-white hover:text-black">
+            <Button
+              onClick={() => handleAccept(request.id)}
+              className="bg-chart-2/80 cursor-pointer rounded-full text-white hover:text-black"
+            >
               <IconCheck /> Accept
             </Button>
-            <Button className="bg-destructive/80 cursor-pointer rounded-full text-white hover:text-black">
+            <Button
+              onClick={() => handleDecline(request.id)}
+              className="bg-destructive/80 cursor-pointer rounded-full text-white hover:text-black"
+            >
               <IconX /> Decline
             </Button>
           </div>

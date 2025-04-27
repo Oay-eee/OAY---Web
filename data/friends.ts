@@ -29,7 +29,7 @@ export const sendFriendRequest = async (currentUserId: string, targetUserId: str
   }
 };
 
-export async function cancelFriendRequest(senderId: string, receiverId: string) {
+export const cancelFriendRequest = async (senderId: string, receiverId: string) => {
   try {
     return await prisma.friends.delete({
       where: {
@@ -43,9 +43,9 @@ export async function cancelFriendRequest(senderId: string, receiverId: string) 
     console.error('Cancel request error:', error);
     return { success: false };
   }
-}
+};
 
-export async function receivedFriendRequest(currentUserId: string) {
+export const receivedFriendRequest = async (currentUserId: string) => {
   try {
     return await prisma.friends.findMany({
       where: {
@@ -69,4 +69,32 @@ export async function receivedFriendRequest(currentUserId: string) {
     console.error('Error fetching received friend requests:', error);
     return [];
   }
-}
+};
+
+export const acceptFriendRequest = async (requestId: string) => {
+  try {
+    await prisma.friends.update({
+      where: { id: requestId },
+      data: {
+        isAccepted: true,
+        acceptedAt: new Date(),
+      },
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Error accepting friend request:', error);
+    return { success: false };
+  }
+};
+
+export const declineFriendRequest = async (requestId: string) => {
+  try {
+    await prisma.friends.delete({
+      where: { id: requestId },
+    });
+    return { success: true };
+  } catch (error) {
+    console.error('Error declining friend request:', error);
+    return { success: false };
+  }
+};
