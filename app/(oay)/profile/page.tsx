@@ -1,7 +1,7 @@
 import { blogContentMock } from '@/assets/mock';
 
 import { BlogCard } from '@/components/shared';
-import { Card, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
 
 import {
   FriendList,
