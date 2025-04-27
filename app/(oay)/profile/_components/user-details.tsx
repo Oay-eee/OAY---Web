@@ -1,9 +1,9 @@
 import { ElementType } from 'react';
 
 import { userProfile } from '@/assets/mock';
-import { IconGlobe, IconMail, IconUser } from '@tabler/icons-react';
+import { IconEdit, IconGlobe, IconMail, IconUser } from '@tabler/icons-react';
 
-import { Card, CardContent, CardHeader, H2 } from '@/components/ui';
+import { Button, Card, CardContent, CardHeader, H2 } from '@/components/ui';
 
 type UserInfoItemProps = {
   icon: ElementType;
@@ -22,8 +22,11 @@ export const UserDetails = () => {
 
   return (
     <Card>
-      <CardHeader className="pb-4">
+      <CardHeader className="flex justify-between pb-4">
         <H2 className="text-xl">User Information</H2>
+        <Button className="flex cursor-pointer items-center gap-2 rounded-full">
+          <IconEdit /> Edit
+        </Button>
       </CardHeader>
       <CardContent className="space-y-4">
         <UserInfoItem icon={IconUser} label={gender} />
