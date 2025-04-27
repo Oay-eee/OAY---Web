@@ -1,27 +1,34 @@
+import { ElementType } from 'react';
+
 import { userProfile } from '@/assets/mock';
 import { IconGlobe, IconMail, IconUser } from '@tabler/icons-react';
 
-import { Card, CardContent, CardHeader } from '@/components/ui';
+import { Card, CardContent, CardHeader, H2 } from '@/components/ui';
+
+type UserInfoItemProps = {
+  icon: ElementType;
+  label: string;
+};
+
+const UserInfoItem = ({ icon: Icon, label }: UserInfoItemProps) => (
+  <div className="flex items-center gap-3">
+    <Icon size={20} className="text-zinc-400" />
+    <span className="text-sm text-zinc-400">{label}</span>
+  </div>
+);
 
 export const UserDetails = () => {
+  const { gender, email, location } = userProfile;
+
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between pb-4">
-        <h2 className="text-xl font-semibold text-white">User Information</h2>
+      <CardHeader className="pb-4">
+        <H2 className="text-xl">User Information</H2>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="flex items-center gap-3">
-          <IconUser className="h-5 w-5 text-zinc-400" />
-          <span className="text-zinc-600">{userProfile.gender}</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <IconMail className="h-5 w-5 text-zinc-400" />
-          <span className="text-zinc-600">{userProfile.email}</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <IconGlobe className="h-5 w-5 text-zinc-400" />
-          <span className="text-zinc-600">{userProfile.location}</span>
-        </div>
+        <UserInfoItem icon={IconUser} label={gender} />
+        <UserInfoItem icon={IconMail} label={email} />
+        <UserInfoItem icon={IconGlobe} label={location} />
       </CardContent>
     </Card>
   );
