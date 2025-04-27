@@ -1,32 +1,10 @@
-'use client';
+import { ProfileHeader } from '@/app/(oay)/profile/_components';
 
-import { blogContentMock } from '@/assets/mock';
-import { useCurrentUser } from '@/hooks';
-
-import { BlogCard, SidebarProfile, SidebarUserInfo } from '@/components/shared';
-
-export default function Home() {
-  const currentUser = useCurrentUser();
-
-  if (!currentUser?.image) return <h1>No image available</h1>;
-
+export default function Profile() {
   return (
-    <main className="h-screen w-full">
-      <div className="mx-auto grid h-full max-w-[90vw] grid-cols-1 lg:grid-cols-[1fr_2fr]">
-        <div className="scrollbar-hide hidden overflow-y-auto p-5 lg:block">
-          <section className="mt-5 flex flex-col items-center justify-center">
-            <SidebarProfile user={currentUser} />
-            <SidebarUserInfo />
-          </section>
-        </div>
-
-        <div className="scrollbar-hide space-y-10 overflow-y-auto p-5 px-20 pb-30">
-          <h2 className="my-5 text-2xl font-bold text-white">This user&#39;s posts</h2>
-          <div className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
-          {blogContentMock.map((content, index) => (
-            <BlogCard key={index} content={content} />
-          ))}
-        </div>
+    <main className="min-h-screen w-full p-10">
+      <div className="mx-auto max-w-4xl space-y-8">
+        <ProfileHeader />
       </div>
     </main>
   );

@@ -5,3 +5,5 @@ export * from './input';
 export * from './textarea';
 export * from './badge';
 export * from './sonner';
+export * from './card';
+export * from './avatar';
