@@ -1,12 +1,66 @@
-import { Card } from '@/components/ui';
+'use client';
+
+import { MouseEventHandler, ReactNode, useRef } from 'react';
+
+import { notificationMock } from '@/assets/mock';
+import { IconWorld } from '@tabler/icons-react';
+import { motion, useInView } from 'framer-motion';
+
+import { Button, Card, H2, H4 } from '@/components/ui';
+
+type AnimatedItemProps = {
+  children: ReactNode;
+  delay?: number;
+  onClick?: MouseEventHandler<HTMLDivElement>;
+};
+
+const AnimatedItem = ({ children, delay = 0, onClick }: AnimatedItemProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { amount: 0.5, once: false });
+
+  return (
+    <motion.div
+      ref={ref}
+      onClick={onClick}
+      initial={{ scale: 0.7, opacity: 0 }}
+      animate={inView ? { scale: 1, opacity: 1 } : { scale: 0.7, opacity: 0 }}
+      transition={{ duration: 0.2, delay }}
+      className="mb-4 cursor-pointer"
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+const NotificationItem = ({ title, description }: { title: string; description: string }) => (
+  <div className="rounded-lg bg-zinc-800 p-4 transition-colors hover:bg-zinc-700">
+    <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 text-white">
+        <H4>{title}</H4>
+        <span className="text-sm text-zinc-400">{description}</span>
+      </div>
+      <Button variant="link" className="cursor-pointer">
+        View more
+      </Button>
+    </div>
+  </div>
+);
 
 export const Notifications = () => (
   <Card className="rounded-lg bg-zinc-900 p-5">
-    <h2 className="mb-3 text-xl font-semibold">Notifications</h2>
-    <p className="text-gray-600">Latest notifications for the current user will appear here.</p>
-    <ul className="list-disc pl-5">
-      <li>Notification 1: New friend request</li>
-      <li>Notification 2: Post liked</li>
-    </ul>
+    <H2 className="mb-4 flex items-center gap-2 text-white">
+      <IconWorld size={24} /> Notifications
+    </H2>
+    <div className="space-y-2">
+      {notificationMock.map((notification) => (
+        <AnimatedItem
+          key={notification.id}
+          delay={notification.delay}
+          onClick={() => console.log(`Clicked notification: ${notification.title}`)}
+        >
+          <NotificationItem title={notification.title} description={notification.description} />
+        </AnimatedItem>
+      ))}
+    </div>
   </Card>
 );
