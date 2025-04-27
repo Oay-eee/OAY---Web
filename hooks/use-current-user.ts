@@ -1,5 +1,3 @@
-'use client';
-
 import { useSession } from 'next-auth/react';
 
 /**
@@ -7,7 +5,11 @@ import { useSession } from 'next-auth/react';
  * @returns The authenticated user object or undefined if not authenticated
  */
 export const useCurrentUser = () => {
-  const session = useSession();
+  const { data: session, status } = useSession();
 
-  return session.data?.user;
+  if (status === 'loading') {
+    return null;
+  }
+
+  return session?.user || null;
 };

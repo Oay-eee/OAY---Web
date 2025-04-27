@@ -1,3 +1,5 @@
+'use server';
+
 import { prisma } from '@/lib';
 
 export const getUserByEmail = async (email: string) => {
@@ -10,8 +12,18 @@ export const getUserByEmail = async (email: string) => {
 
 export const getUserById = async (id: string) => {
   try {
-    return await prisma.user.findUnique({ where: { id } });
-  } catch {
+    const user = await prisma.user.findUnique({
+      where: { id },
+    });
+
+    if (!user) {
+      console.log(`No user found with id: ${id}`);
+      return null;
+    }
+
+    return user;
+  } catch (error) {
+    console.error('Error fetching user:', error);
     return null;
   }
 };
