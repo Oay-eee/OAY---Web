@@ -47,7 +47,7 @@ const ProfileSection = ({ blogContent }: { blogContent: BlogContent[] }) => (
 );
 
 const SidebarSection = () => (
-  <section className="space-y-5">
+  <section className="space-y-5 scrollbar-hide mx-5 h-[calc(100vh-5rem)] overflow-y-auto">
     <Notifications />
     <Messages />
     <FriendList />
