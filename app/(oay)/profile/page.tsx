@@ -5,14 +5,7 @@ import { blogContentMock } from '@/assets/mock';
 import { BlogCard } from '@/components/shared';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
 
-import {
-  FriendList,
-  FriendRequest,
-  Messages,
-  Notifications,
-  ProfileHeader,
-  UserDetails,
-} from '@/app/(oay)/profile/_components';
+import { FriendRequest, Messages, Notifications, ProfileHeader, UserDetails } from '@/app/(oay)/profile/_components';
 
 export type BlogContent = {
   slug: string;
@@ -47,10 +40,9 @@ const ProfileSection = ({ blogContent }: { blogContent: BlogContent[] }) => (
 );
 
 const SidebarSection = () => (
-  <section className="space-y-5 scrollbar-hide mx-5 h-[calc(100vh-5rem)] overflow-y-auto">
+  <section className="scrollbar-hide mx-5 h-[calc(100vh-5rem)] space-y-5 overflow-y-auto">
     <Notifications />
     <Messages />
-    <FriendList />
   </section>
 );
 
