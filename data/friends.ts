@@ -14,6 +14,7 @@ export const sendFriendRequest = async (currentUserId: string, targetUserId: str
 
     if (existingRequest) {
       console.error('Friend request already sent.');
+      return null;
     }
 
     return await prisma.friends.create({
@@ -24,6 +25,7 @@ export const sendFriendRequest = async (currentUserId: string, targetUserId: str
     });
   } catch (error) {
     console.error('Error when sending friend request', error);
+    return null;
   }
 };
 
@@ -40,5 +42,31 @@ export async function cancelFriendRequest(senderId: string, receiverId: string) 
   } catch (error) {
     console.error('Cancel request error:', error);
     return { success: false };
+  }
+}
+
+export async function receivedFriendRequest(currentUserId: string) {
+  try {
+    return await prisma.friends.findMany({
+      where: {
+        receiverId: currentUserId,
+        isAccepted: false,
+        isDeleted: false,
+      },
+      include: {
+        sender: {
+          select: {
+            id: true,
+            name: true,
+            pseudo: true,
+            image: true,
+            gender: true,
+          },
+        },
+      },
+    });
+  } catch (error) {
+    console.error('Error fetching received friend requests:', error);
+    return [];
   }
 }
