@@ -9,7 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage, Card, CardContent } from '@/compon
 export const ProfileHeader = () => {
   return (
     <Card>
-      <CardContent className="">
+      <CardContent>
         <div className="flex flex-col items-center gap-6">
           <div className="relative flex h-32 w-full justify-center rounded-xl bg-cover">
             <Image

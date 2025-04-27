@@ -31,7 +31,7 @@ type IconContainerProps = {
 
 export const FloatingDock = ({ items, desktopClassName, mobileClassName }: FloatingDockProps) => {
   return (
-    <div className="absolute bottom-2">
+    <div className="fixed bottom-2">
       <FloatingDockDesktop items={items} className={desktopClassName} />
       <FloatingDockMobile items={items} className={mobileClassName} />
     </div>

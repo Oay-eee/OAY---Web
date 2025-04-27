@@ -7,3 +7,4 @@ export * from './badge';
 export * from './sonner';
 export * from './card';
 export * from './avatar';
+export * from './tabs';
