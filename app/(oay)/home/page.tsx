@@ -27,7 +27,7 @@ export default function Home() {
   return (
     <main className="h-screen w-full">
       <div className="mx-auto grid h-full max-w-[90vw] grid-cols-1 lg:grid-cols-[1fr_2fr_1fr]">
-        <aside className="scrollbar-hide hidden overflow-y-auto p-5 lg:block">
+        <aside className="scrollbar-hide hidden space-y-5 overflow-y-auto p-5 lg:block">
           <Header />
           <PlaceholdersAndVanishInput
             placeholders={placeholders}
