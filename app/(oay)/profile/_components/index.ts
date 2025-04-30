@@ -3,3 +3,4 @@ export * from './user-details';
 export * from './notifications';
 export * from './messages';
 export * from './friend-request';
+export * from './friend-list';

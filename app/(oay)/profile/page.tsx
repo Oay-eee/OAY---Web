@@ -13,7 +13,14 @@ import { ClipLoader } from 'react-spinners';
 import { BlogCard } from '@/components/shared';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
 
-import { FriendRequest, Messages, Notifications, ProfileHeader, UserDetails } from '@/app/(oay)/profile/_components';
+import {
+  FriendList,
+  FriendRequest,
+  Messages,
+  Notifications,
+  ProfileHeader,
+  UserDetails,
+} from '@/app/(oay)/profile/_components';
 
 export type BlogContent = {
   slug: string;
@@ -79,9 +86,9 @@ const ProfileSection = ({ blogContent }: { blogContent: BlogContent[] }) => {
       <Tabs defaultValue="posts" className="w-full">
         <TabsList>
           <TabsTrigger value="posts">Posts</TabsTrigger>
+          <TabsTrigger value="list">Friend list</TabsTrigger>
           <TabsTrigger value="requests">Friend request(s)</TabsTrigger>
         </TabsList>
-
         <TabsContent value="posts">
           <section className="space-y-10 p-5 pb-20">
             {blogContent.map((content) => (
@@ -89,9 +96,11 @@ const ProfileSection = ({ blogContent }: { blogContent: BlogContent[] }) => {
             ))}
           </section>
         </TabsContent>
-
         <TabsContent value="requests">
           <FriendRequest currentUserId={currentUser.id} />
+        </TabsContent>
+        <TabsContent value="list">
+          <FriendList />
         </TabsContent>
       </Tabs>
     </section>
