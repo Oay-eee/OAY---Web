@@ -4,9 +4,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import { Cover, Madagascar } from '@/assets/images';
+import { Madagascar } from '@/assets/images';
 import { useCurrentUser } from '@/hooks';
 import { IconBellFilled, IconBrandMessengerFilled } from '@tabler/icons-react';
+import { toast } from 'sonner';
+
+import { P } from '@/components/ui';
 
 export const ProfileCard = () => {
   const currentUser = useCurrentUser();
@@ -43,17 +46,25 @@ export const ProfileCard = () => {
           <h4 className="text-xl font-bold text-white capitalize hover:underline" onClick={handleNavigation}>
             {currentUser?.name} 🇲🇬
           </h4>
-          <p className="text-base font-normal text-zinc-400">@fiantsoharena</p>
+          <P className="!mt-0 text-zinc-500">@fiantsoharena</P>
         </div>
         <div className="mt-6 mb-3 flex gap-14 md:!gap-14">
-          <Link href="/messages" className="flex cursor-pointer flex-col items-center justify-center">
+          <Link
+            href="#"
+            className="flex cursor-pointer flex-col items-center justify-center"
+            onClick={() => toast.info('This functionality is under development')}
+          >
             <IconBrandMessengerFilled />
           </Link>
           <div className="flex flex-col items-center justify-center">
             <p className="text-navy-700 text-2xl font-bold dark:text-white">0</p>
             <p className="text-sm font-normal text-zinc-400">Friend(s)</p>
           </div>
-          <Link href="/notifications" className="flex cursor-pointer flex-col items-center justify-center">
+          <Link
+            href="#"
+            className="flex cursor-pointer flex-col items-center justify-center"
+            onClick={() => toast.info('This functionality is under development')}
+          >
             <IconBellFilled />
           </Link>
         </div>
