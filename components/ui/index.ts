@@ -9,3 +9,4 @@ export * from './card';
 export * from './avatar';
 export * from './tabs';
 export * from './typography';
+export * from './tooltip';

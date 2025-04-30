@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Cover } from '@/assets/images';
 import { IconClock, IconMessage2, IconMoodHappy, IconThumbDown, IconThumbUp } from '@tabler/icons-react';
 
-import { Badge, Card, H2, H4, P } from '@/components/ui';
+import { Badge, Card, H2, H4, P, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui';
 
 type NewsPost = {
   id: string;
@@ -54,8 +54,26 @@ type BlogInteractionsProps = {
 
 type InteractionItemProps = {
   icon: ReactNode;
-  count: number;
+  count?: number;
 };
+
+const interactions = [
+  {
+    icon: <IconThumbUp className="cursor-pointer" stroke={2} />,
+    countKey: 'true',
+    label: 'Like',
+  },
+  {
+    icon: <IconThumbDown className="cursor-pointer" stroke={2} />,
+    countKey: 'false',
+    label: 'Dislike',
+  },
+  {
+    icon: <IconMoodHappy className="cursor-pointer" stroke={2} />,
+    count: 79,
+    label: 'Haha',
+  },
+];
 
 const BlogImage = ({ image, alt }: BlogImageProps) =>
   image ? (
@@ -120,11 +138,29 @@ const InteractionItem = ({ icon, count }: InteractionItemProps) => (
 const BlogInteractions = ({ votes = { true: 0, false: 0 }, comments = 0 }: BlogInteractionsProps) => (
   <div className="mt-6 flex items-center justify-between">
     <div className="flex gap-6">
-      <InteractionItem icon={<IconThumbUp className="cursor-pointer" stroke={2} />} count={votes.true} />
-      <InteractionItem icon={<IconThumbDown className="cursor-pointer" stroke={2} />} count={votes.false} />
-      <InteractionItem icon={<IconMoodHappy className="cursor-pointer" stroke={2} />} count={79} />
+      {interactions.map(({ icon, countKey, count, label }, index) => (
+        <TooltipProvider key={index}>
+          <Tooltip>
+            <TooltipTrigger>
+              <InteractionItem icon={icon} count={countKey ? votes[countKey as keyof typeof votes] : count} />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{label}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ))}
     </div>
-    <InteractionItem icon={<IconMessage2 className="cursor-pointer" stroke={2} />} count={comments} />
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger>
+          <InteractionItem icon={<IconMessage2 className="cursor-pointer" stroke={2} />} count={comments} />
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Comments</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   </div>
 );
 
