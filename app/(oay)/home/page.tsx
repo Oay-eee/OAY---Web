@@ -1,11 +1,8 @@
 'use client';
 
-import { ChangeEvent, FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, FormEvent, useCallback, useMemo } from 'react';
 
 import { blogContentMock } from '@/assets/mock';
-import { useCurrentUser } from '@/hooks';
-import { User } from 'next-auth';
-import { toast } from 'sonner';
 
 import { PlaceholdersAndVanishInput } from '@/components/aceternity';
 import { BlogCard, ProfileCard } from '@/components/shared';
@@ -13,10 +10,6 @@ import { BlogCard, ProfileCard } from '@/components/shared';
 import { DiscoverSection, Header, SuggestedFriends } from '@/app/(oay)/home/_components';
 
 export default function Home() {
-  const [suggestedFriends, setSuggestedFriends] = useState<User[] | null>([]);
-  const [loading, setLoading] = useState(false);
-  const currentUser = useCurrentUser();
-
   const placeholders = useMemo(
     () => ['Who is Fiantso Harena?', 'What is happening in your neighborhood?', 'How about the traffics?'],
     []
@@ -30,30 +23,6 @@ export default function Home() {
     e.preventDefault();
     console.log('submitted');
   }, []);
-
-  useEffect(() => {
-    if (!currentUser?.id) return;
-
-    (async () => {
-      setLoading(true);
-
-      try {
-        const response = await fetch('/api/friends/suggested');
-        const data = await response.json();
-
-        if (response.ok) {
-          setSuggestedFriends(data);
-        } else {
-          toast.error('Error fetching suggested friends');
-        }
-      } catch (err) {
-        console.error('Error fetching suggested friends:', err);
-        toast.error('Error fetching suggested friends');
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [currentUser?.id]);
 
   return (
     <main className="h-screen w-full">
@@ -74,7 +43,7 @@ export default function Home() {
           ))}
         </section>
         <aside className="scrollbar-hide hidden overflow-y-auto lg:block">
-          <SuggestedFriends suggestedFriends={suggestedFriends} loading={loading} />
+          <SuggestedFriends />
         </aside>
       </div>
     </main>

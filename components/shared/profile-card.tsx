@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import { Cover } from '@/assets/images';
+import { Cover, Madagascar } from '@/assets/images';
 import { useCurrentUser } from '@/hooks';
 import { IconBellFilled, IconBrandMessengerFilled } from '@tabler/icons-react';
 
@@ -13,7 +13,7 @@ export const ProfileCard = () => {
   const router = useRouter();
 
   const handleNavigation = () => {
-    return router.push('/profile');
+    return router.push(`/profile`);
   };
 
   if (!currentUser?.image) return <h1>No image available</h1>;
@@ -21,13 +21,13 @@ export const ProfileCard = () => {
   return (
     <section className="mt-5 flex cursor-pointer flex-col items-center justify-center">
       <div className="relative mx-auto flex w-[400px] flex-col items-center rounded-[20px] bg-clip-border p-4 text-white shadow-none dark:bg-zinc-800">
-        <div className="relative flex h-32 w-full justify-center rounded-xl bg-cover">
+        <div className="relative flex h-32 w-full justify-center rounded-xl">
           <Image
-            src={Cover}
-            className="absolute flex h-32 w-full justify-center rounded-xl bg-cover"
+            src={Madagascar}
+            className="absolute flex h-32 w-full justify-center rounded-xl object-cover"
             alt="Cover Image"
-            width={200}
-            height={200}
+            width={1000}
+            height={1000}
           />
           <div className="dark:!border-navy-700 absolute -bottom-12 flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400">
             <Image
@@ -50,7 +50,7 @@ export const ProfileCard = () => {
             <IconBrandMessengerFilled />
           </Link>
           <div className="flex flex-col items-center justify-center">
-            <p className="text-navy-700 text-2xl font-bold dark:text-white">9.7K</p>
+            <p className="text-navy-700 text-2xl font-bold dark:text-white">0</p>
             <p className="text-sm font-normal text-zinc-400">Friend(s)</p>
           </div>
           <Link href="/notifications" className="flex cursor-pointer flex-col items-center justify-center">

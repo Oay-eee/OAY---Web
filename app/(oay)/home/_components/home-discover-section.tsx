@@ -1,13 +1,9 @@
-import { IconCircleArrowDownFilled } from '@tabler/icons-react';
-
 import { AnimatedList } from '@/components/aceternity';
+import { H2 } from '@/components/ui';
 
 export const DiscoverSection = () => (
   <div className="mt-5">
-    <div className="flex items-center justify-between">
-      <h2 className="my-5 text-2xl font-bold text-white">Discover</h2>
-      <IconCircleArrowDownFilled className="cursor-pointer" />
-    </div>
+    <H2 className="my-4 flex items-center gap-2 text-white">Discovers</H2>
     <AnimatedList />
   </div>
 );

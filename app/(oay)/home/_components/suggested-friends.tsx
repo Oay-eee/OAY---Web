@@ -1,14 +1,12 @@
-import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
+import { useCurrentUser } from '@/hooks';
 import { User } from 'next-auth';
+import { toast } from 'sonner';
 
 import { ExpandableCard } from '@/components/aceternity';
+import { H2 } from '@/components/ui';
 import { Skeleton } from '@/components/ui/skeleton';
-
-type SuggestedFriendsProps = {
-  suggestedFriends: User[] | null;
-  loading: boolean;
-};
 
 const SkeletonLoading = () => (
   <div className="flex flex-col items-center justify-between rounded-xl p-4 md:flex-row">
@@ -23,22 +21,49 @@ const SkeletonLoading = () => (
   </div>
 );
 
-export const SuggestedFriends = ({ suggestedFriends, loading }: SuggestedFriendsProps) => (
-  <div className="mt-5">
-    <div className="flex items-center justify-between">
-      <h2 className="my-5 text-2xl font-bold text-white">Suggested friends</h2>
-      <Link href="#" className="text-sm underline">
-        View more
-      </Link>
+export const SuggestedFriends = () => {
+  const [suggestedFriends, setSuggestedFriends] = useState<User[] | null>([]);
+  const [loading, setLoading] = useState(false);
+  const currentUser = useCurrentUser();
+
+  useEffect(() => {
+    if (!currentUser?.id) return;
+
+    (async () => {
+      setLoading(true);
+
+      try {
+        const response = await fetch('/api/friends/suggested');
+        const data = await response.json();
+
+        if (response.ok) {
+          setSuggestedFriends(data);
+        } else {
+          toast.error('Error fetching suggested friends');
+        }
+      } catch (err) {
+        console.error('Error fetching suggested friends:', err);
+        toast.error('Error fetching suggested friends');
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [currentUser?.id]);
+
+  return (
+    <div className="mt-5">
+      <div className="flex items-center justify-between">
+        <H2 className="my-4 flex items-center gap-2 text-white">Suggested friends</H2>
+      </div>
+      {loading ? (
+        <>
+          {Array.from({ length: 5 }).map((_, index) => (
+            <SkeletonLoading key={`skeleton-${index}`} />
+          ))}
+        </>
+      ) : (
+        <ExpandableCard data={suggestedFriends} />
+      )}
     </div>
-    {loading ? (
-      <>
-        {Array.from({ length: 5 }).map((_, index) => (
-          <SkeletonLoading key={`skeleton-${index}`} />
-        ))}
-      </>
-    ) : (
-      <ExpandableCard data={suggestedFriends} />
-    )}
-  </div>
-);
+  );
+};
