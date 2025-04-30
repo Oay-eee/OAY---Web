@@ -2,9 +2,10 @@ import { ReactNode } from 'react';
 
 import Image from 'next/image';
 
+import { Cover } from '@/assets/images';
 import { IconClock, IconMessage2, IconMoodHappy, IconThumbDown, IconThumbUp } from '@tabler/icons-react';
 
-import { H2 } from '@/components/ui';
+import { Badge, Card, H2, H4, P } from '@/components/ui';
 
 type NewsPost = {
   id: string;
@@ -26,9 +27,24 @@ type NewsPost = {
   commentCount: number;
 };
 
+type BlogCardProps = {
+  content: NewsPost;
+};
+
 type BlogImageProps = {
   image?: string;
   alt: string;
+};
+
+type BlogHeaderProps = {
+  title: string;
+  category: string;
+};
+
+type BlogAvatarProps = {
+  user: string;
+  postedAt: string;
+  where: string;
 };
 
 type BlogInteractionsProps = {
@@ -36,10 +52,13 @@ type BlogInteractionsProps = {
   comments?: number;
 };
 
-const BlogImage = ({ image, alt }: BlogImageProps) => {
-  if (!image) return null;
+type InteractionItemProps = {
+  icon: ReactNode;
+  count: number;
+};
 
-  return (
+const BlogImage = ({ image, alt }: BlogImageProps) =>
+  image ? (
     <div className="relative aspect-[16/10] w-full overflow-hidden rounded-tl-lg rounded-tr-lg">
       <Image
         src={image}
@@ -48,27 +67,47 @@ const BlogImage = ({ image, alt }: BlogImageProps) => {
         className="object-cover transition-transform duration-200 group-hover:scale-95 group-hover:rounded-2xl"
       />
     </div>
-  );
-};
+  ) : null;
 
-type BlogHeaderProps = {
-  title: string;
-  date: string;
-};
-
-const BlogHeader = ({ title, date }: BlogHeaderProps) => (
-  <div className="my-4 flex items-center justify-between">
-    <H2>{title}</H2>
-    <div className="bg-chart-2/70 flex items-center gap-2 rounded-full px-5 py-1 text-white">
-      <IconClock size={20} />
-      <span className="text-sm">{date}</span>
-    </div>
+const BlogHeader = ({ title, category }: BlogHeaderProps) => (
+  <div className="my-4 flex items-center justify-between gap-4">
+    <H2 className="max-w-[70%] truncate">{title}</H2>
+    <Badge
+      variant="outline"
+      className="bg-chart-2/15 text-chart-2 flex max-w-[30%] items-center gap-2 truncate overflow-hidden rounded-full px-2 py-0.5 text-xs font-medium whitespace-nowrap"
+    >
+      <IconClock size={16} />
+      {category}
+    </Badge>
   </div>
 );
 
-type InteractionItemProps = {
-  icon: ReactNode;
-  count: number;
+const BlogAvatar = ({ user, postedAt, where }: BlogAvatarProps) => {
+  const formattedDate = new Intl.DateTimeFormat('en-US', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(new Date(postedAt));
+
+  return (
+    <div className="mb-4 flex items-center gap-5">
+      <Image
+        src={Cover}
+        alt="User avatar"
+        width={50}
+        height={50}
+        className="h-[50px] w-[50px] rounded-full object-cover"
+      />
+      <div>
+        <H4>{user}</H4>
+        <p className="text-xs text-zinc-300">
+          {formattedDate} – {where}
+        </p>
+      </div>
+    </div>
+  );
 };
 
 const InteractionItem = ({ icon, count }: InteractionItemProps) => (
@@ -79,8 +118,8 @@ const InteractionItem = ({ icon, count }: InteractionItemProps) => (
 );
 
 const BlogInteractions = ({ votes = { true: 0, false: 0 }, comments = 0 }: BlogInteractionsProps) => (
-  <div className="mt-10 flex items-center justify-between">
-    <div className="flex gap-10">
+  <div className="mt-6 flex items-center justify-between">
+    <div className="flex gap-6">
       <InteractionItem icon={<IconThumbUp className="cursor-pointer" stroke={2} />} count={votes.true} />
       <InteractionItem icon={<IconThumbDown className="cursor-pointer" stroke={2} />} count={votes.false} />
       <InteractionItem icon={<IconMoodHappy className="cursor-pointer" stroke={2} />} count={79} />
@@ -89,17 +128,14 @@ const BlogInteractions = ({ votes = { true: 0, false: 0 }, comments = 0 }: BlogI
   </div>
 );
 
-type BlogCardProps = {
-  content: NewsPost;
-};
-
 export const BlogCard = ({ content }: BlogCardProps) => (
-  <div className="group relative overflow-hidden rounded-2xl bg-zinc-800 transition-shadow duration-200 hover:shadow-xl">
+  <Card className="group relative overflow-hidden rounded-2xl bg-zinc-800 p-0 transition-shadow duration-200 hover:shadow-xl">
     <BlogImage image={content.imageUrl} alt="thumbnail" />
     <div className="p-4">
-      <BlogHeader title={content.title} date={content.createdAt} />
-      <p className="text-sm text-zinc-100">{content.content}</p>
+      <BlogAvatar user={content.authorName} postedAt={content.createdAt} where={content.fokontany} />
+      <BlogHeader title={content.title} category={content.category} />
+      <P className="text-sm text-zinc-100">{content.content}</P>
       <BlogInteractions votes={content.voteCount} comments={content.commentCount} />
     </div>
-  </div>
+  </Card>
 );
