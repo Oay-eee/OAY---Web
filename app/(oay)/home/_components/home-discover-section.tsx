@@ -71,7 +71,7 @@ export const DiscoverSection = () => (
     icon={<IconList />}
     title="Discovers"
     items={items}
-    renderItemAction={(item: Discover) => <ListItem title={item.title} icon={item.icon} />}
+    renderItemAction={(item: Discover) => <ListItem title={item.title} icon={item.icon} href={item.href} />}
     getKeyAction={(item: Discover) => item.id}
   />
 );
