@@ -74,7 +74,12 @@ const ProfileSection: FC<ProfileSectionProps> = ({ blogContent, userInfo }) => {
   return (
     <section className="scrollbar-hide mx-5 h-[calc(100vh-5rem)] space-y-8 overflow-y-auto">
       <ProfileHeader {...userData} stats={{ posts: 0, followers: 0 }} />
-      <UserDetails />
+      <UserDetails
+        userId={userInfo?.id || ''}
+        gender={userInfo?.gender || 'Not specified'}
+        email={userInfo?.email || 'Not specified'}
+        location="Not specified"
+      />
       <Tabs defaultValue="posts" className="w-full">
         <TabsList>
           <TabsTrigger value="posts">Posts</TabsTrigger>

@@ -1,6 +1,6 @@
 import { ElementType } from 'react';
 
-import { userProfile } from '@/assets/mock';
+import { useCurrentUser } from '@/hooks';
 import { IconEdit, IconGlobe, IconMail, IconUser } from '@tabler/icons-react';
 
 import { Button, Card, CardContent, CardHeader, H2 } from '@/components/ui';
@@ -10,6 +10,13 @@ type UserInfoItemProps = {
   label: string;
 };
 
+type UserDetailsProps = {
+  userId: string;
+  gender: string;
+  email: string;
+  location: string;
+};
+
 const UserInfoItem = ({ icon: Icon, label }: UserInfoItemProps) => (
   <div className="flex items-center gap-3">
     <Icon size={20} className="text-zinc-400" />
@@ -17,16 +24,19 @@ const UserInfoItem = ({ icon: Icon, label }: UserInfoItemProps) => (
   </div>
 );
 
-export const UserDetails = () => {
-  const { gender, email, location } = userProfile;
+export const UserDetails = ({ userId, gender, email, location }: UserDetailsProps) => {
+  const currentUser = useCurrentUser();
+  const isOwnProfile = currentUser?.id === userId;
 
   return (
     <Card>
       <CardHeader className="flex justify-between pb-4">
         <H2 className="text-xl">User Information</H2>
-        <Button className="flex cursor-pointer items-center gap-2 rounded-full">
-          <IconEdit /> Edit
-        </Button>
+        {isOwnProfile && (
+          <Button className="flex cursor-pointer items-center gap-2 rounded-full">
+            <IconEdit /> Edit
+          </Button>
+        )}
       </CardHeader>
       <CardContent className="space-y-4">
         <UserInfoItem icon={IconUser} label={gender} />
