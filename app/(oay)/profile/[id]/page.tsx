@@ -116,9 +116,12 @@ const SidebarSection = () => (
 
 export default function Profile() {
   const pathname = usePathname();
+  const currentUser = useCurrentUser();
   const userId = pathname.split('/')[2];
   const [userData, setUserData] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const isOwnProfile = currentUser?.id === userId;
 
   useEffect(() => {
     (async () => {
@@ -159,9 +162,13 @@ export default function Profile() {
 
   return (
     <main className="min-h-screen w-full p-10">
-      <div className="mx-auto grid max-w-[90vw] grid-cols-1 gap-5 md:grid-cols-[2fr_1fr]">
+      <div
+        className={`mx-auto max-w-[90vw] ${
+          isOwnProfile ? 'grid grid-cols-1 gap-5 md:grid-cols-[2fr_1fr]' : 'flex justify-center'
+        }`}
+      >
         {renderContent()}
-        <SidebarSection />
+        {isOwnProfile && <SidebarSection />}
       </div>
     </main>
   );
