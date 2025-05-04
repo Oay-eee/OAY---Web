@@ -59,6 +59,7 @@ const getUserProfileData = (userInfo: User | null): UserProfileData => ({
 
 const ProfileSection: FC<ProfileSectionProps> = ({ blogContent, userInfo }) => {
   const currentUser = useCurrentUser();
+  const isOwnProfile = currentUser?.id === userInfo?.id;
 
   const userData = useMemo(() => getUserProfileData(userInfo), [userInfo]);
 
@@ -77,8 +78,12 @@ const ProfileSection: FC<ProfileSectionProps> = ({ blogContent, userInfo }) => {
       <Tabs defaultValue="posts" className="w-full">
         <TabsList>
           <TabsTrigger value="posts">Posts</TabsTrigger>
-          <TabsTrigger value="list">Friend list</TabsTrigger>
-          <TabsTrigger value="requests">Friend request(s)</TabsTrigger>
+          {isOwnProfile && (
+            <>
+              <TabsTrigger value="list">Friend list</TabsTrigger>
+              <TabsTrigger value="requests">Friend request(s)</TabsTrigger>
+            </>
+          )}
         </TabsList>
         <TabsContent value="posts">
           <section className="space-y-10 p-5 pb-20">
@@ -87,12 +92,16 @@ const ProfileSection: FC<ProfileSectionProps> = ({ blogContent, userInfo }) => {
             ))}
           </section>
         </TabsContent>
-        <TabsContent value="requests">
-          <FriendRequest currentUserId={currentUser.id} />
-        </TabsContent>
-        <TabsContent value="list">
-          <FriendList />
-        </TabsContent>
+        {isOwnProfile && (
+          <>
+            <TabsContent value="requests">
+              <FriendRequest currentUserId={currentUser.id} />
+            </TabsContent>
+            <TabsContent value="list">
+              <FriendList />
+            </TabsContent>
+          </>
+        )}
       </Tabs>
     </section>
   );

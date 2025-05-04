@@ -1,4 +1,4 @@
-import { $Enums } from "@prisma/client";
+import { $Enums } from '@prisma/client';
 
 export type User = {
   id: string;
@@ -14,4 +14,3 @@ export type User = {
   createdAt: Date;
   isTwoFactorEnabled: boolean;
 };
-
