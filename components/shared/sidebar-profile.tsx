@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
 import { Cover } from '@/assets/images';
 import { IconBellFilled, IconBrandMessengerFilled } from '@tabler/icons-react';

@@ -1,5 +1,3 @@
-'use client';
-
 import { ReactElement, ReactNode } from 'react';
 
 import { AnimatedItem } from '@/components/shared/animated-item';

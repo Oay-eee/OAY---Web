@@ -1,3 +1,5 @@
+'use client';
+
 import { ChangeEvent, FormEvent, useCallback, useMemo } from 'react';
 
 import { PlaceholdersAndVanishInput } from '@/components/aceternity';

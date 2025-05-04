@@ -23,8 +23,6 @@ export const blogContentMock = [
     title: 'Community cleanup initiative this weekend',
     content:
       'Join us this Saturday for a community cleanup event at Lake Anosy. Bring gloves and bags if you have them. Refreshments will be provided. Meet at the main entrance at 9AM.',
-    imageUrl:
-      'https://madagascar.un.org/sites/default/files/styles/hero_header_2xl_1x/public/2019-11/69572351_2401037293299358_3463824539346010112_o.jpg?itok=Hhpy5IcV',
     authorId: 'u2',
     authorName: 'Hanitra Razafy',
     authorAvatar: 'https://i.pravatar.cc/150?u=hanitra',
