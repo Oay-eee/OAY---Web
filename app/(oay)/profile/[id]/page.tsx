@@ -1,6 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { blogContentMock } from '@/assets/mock';
 import { getUserById } from '@/data';
@@ -8,8 +11,10 @@ import { useCurrentUser } from '@/hooks';
 import { Gender } from '@prisma/client';
 import { ClipLoader } from 'react-spinners';
 
+import { TextGenerateEffect } from '@/components/aceternity';
 import { BlogCard } from '@/components/shared';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Skeleton } from '@/components/ui/skeleton';
 
 import {
   FriendList,
@@ -20,9 +25,9 @@ import {
   UserDetails,
 } from '@/app/(oay)/profile/[id]/_components';
 
-type UserData = {
-  name: string | null;
+type User = {
   id: string;
+  name: string | null;
   email: string | null;
   emailVerified: Date | null;
   password: string | null;
@@ -33,26 +38,29 @@ type UserData = {
   points: number;
   createdAt: Date;
   isTwoFactorEnabled: boolean;
-} | null;
+};
 
-const ProfileSection = ({ blogContent }: { blogContent: typeof blogContentMock }) => {
+type UserProfileData = {
+  name: string;
+  username: string;
+  avatar: string;
+};
+
+type ProfileSectionProps = {
+  blogContent: typeof blogContentMock;
+  userInfo: User | null;
+};
+
+const getUserProfileData = (userInfo: User | null): UserProfileData => ({
+  name: userInfo?.name || 'Anonymous',
+  username: userInfo?.pseudo || userInfo?.email?.split('@')[0] || 'user',
+  avatar: userInfo?.image || '/images/default-avatar.png',
+});
+
+const ProfileSection: FC<ProfileSectionProps> = ({ blogContent, userInfo }) => {
   const currentUser = useCurrentUser();
-  const [user, setUser] = useState<UserData | null>(null);
 
-  const userData = {
-    name: user?.name || 'Anonymous',
-    username: user?.pseudo || user?.email?.split('@')[0] || 'user',
-    avatar: user?.image || '/images/default-avatar.png',
-  };
-
-  useEffect(() => {
-    if (currentUser?.id) {
-      (async () => {
-        const profileData = await getUserById(currentUser.id);
-        setUser(profileData);
-      })();
-    }
-  }, [currentUser]);
+  const userData = useMemo(() => getUserProfileData(userInfo), [userInfo]);
 
   if (!currentUser?.id) {
     return (
@@ -64,13 +72,7 @@ const ProfileSection = ({ blogContent }: { blogContent: typeof blogContentMock }
 
   return (
     <section className="scrollbar-hide mx-5 h-[calc(100vh-5rem)] space-y-8 overflow-y-auto">
-      <ProfileHeader
-        {...userData}
-        stats={{
-          posts: 0,
-          followers: 0,
-        }}
-      />
+      <ProfileHeader {...userData} stats={{ posts: 0, followers: 0 }} />
       <UserDetails />
       <Tabs defaultValue="posts" className="w-full">
         <TabsList>
@@ -104,10 +106,52 @@ const SidebarSection = () => (
 );
 
 export default function Profile() {
+  const pathname = usePathname();
+  const userId = pathname.split('/')[2];
+  const [userData, setUserData] = useState<User | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      setLoading(true);
+      try {
+        const result = await getUserById(userId);
+        setUserData(result);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [userId]);
+
+  const renderContent = () => {
+    if (loading) {
+      return (
+        <div className="space-y-4">
+          <Skeleton className="h-10 w-3/4" />
+          <Skeleton className="h-6 w-1/2" />
+          <Skeleton className="h-48 w-full rounded-xl" />
+        </div>
+      );
+    }
+
+    if (!userData) {
+      return (
+        <article className="flex w-full flex-col items-center justify-center gap-10">
+          <TextGenerateEffect words="User not found :')" />
+          <Link href="/home" className="underline">
+            Go back home
+          </Link>
+        </article>
+      );
+    }
+
+    return <ProfileSection userInfo={userData} blogContent={blogContentMock} />;
+  };
+
   return (
     <main className="min-h-screen w-full p-10">
       <div className="mx-auto grid max-w-[90vw] grid-cols-1 gap-5 md:grid-cols-[2fr_1fr]">
-        <ProfileSection blogContent={blogContentMock} />
+        {renderContent()}
         <SidebarSection />
       </div>
     </main>

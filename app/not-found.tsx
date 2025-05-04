@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { TextGenerateEffect } from '../components/aceternity';
+import { TextGenerateEffect } from '@/components/aceternity';
 
 export default function NotFound() {
   return (
