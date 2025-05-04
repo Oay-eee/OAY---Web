@@ -16,7 +16,7 @@ export const ProfileCard = () => {
   const router = useRouter();
 
   const handleNavigation = () => {
-    return router.push(`/profile`);
+    return router.push(`/profile/${currentUser?.id}`);
   };
 
   if (!currentUser?.image) return <h1>No image available</h1>;

@@ -18,7 +18,7 @@ import {
   Notifications,
   ProfileHeader,
   UserDetails,
-} from '@/app/(oay)/profile/_components';
+} from '@/app/(oay)/profile/[id]/_components';
 
 type UserData = {
   name: string | null;
