@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from 'react';
 
-import { StaticImageData } from 'next/image';
-
 import { blogContentMock } from '@/assets/mock';
 import { getUserById } from '@/data';
 import { useCurrentUser } from '@/hooks';
@@ -22,15 +20,6 @@ import {
   UserDetails,
 } from '@/app/(oay)/profile/_components';
 
-export type BlogContent = {
-  slug: string;
-  author: string;
-  date: string;
-  title: string;
-  description: string;
-  image: StaticImageData;
-};
-
 type UserData = {
   name: string | null;
   id: string;
@@ -46,7 +35,7 @@ type UserData = {
   isTwoFactorEnabled: boolean;
 } | null;
 
-const ProfileSection = ({ blogContent }: { blogContent: BlogContent[] }) => {
+const ProfileSection = ({ blogContent }: { blogContent: typeof blogContentMock }) => {
   const currentUser = useCurrentUser();
   const [user, setUser] = useState<UserData | null>(null);
 
@@ -92,7 +81,7 @@ const ProfileSection = ({ blogContent }: { blogContent: BlogContent[] }) => {
         <TabsContent value="posts">
           <section className="space-y-10 p-5 pb-20">
             {blogContent.map((content) => (
-              <BlogCard key={content.slug} content={content} />
+              <BlogCard key={content.id} content={content} />
             ))}
           </section>
         </TabsContent>
