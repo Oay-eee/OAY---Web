@@ -5,6 +5,7 @@ import { useEffect, useId, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
+import { Cover } from '@/assets/images';
 import { cancelFriendRequest, sendFriendRequest } from '@/data';
 import { useCurrentUser, useOutsideClick } from '@/hooks';
 import { IconSend, IconUser, IconX } from '@tabler/icons-react';
@@ -91,7 +92,7 @@ export const ExpandableCard = ({ data }: ExpandableCardProps) => {
       id: user.id!,
       name: user.name ?? 'Unknown',
       email: user.email ?? 'No description',
-      image: user.image ?? '/default-avatar.png',
+      image: user.image ?? Cover.src,
       ctaLink: `/profile/${user.id}`,
       ctaText: 'View Profile',
     });
@@ -192,7 +193,7 @@ export const ExpandableCard = ({ data }: ExpandableCardProps) => {
                 <Image
                   width={100}
                   height={100}
-                  src={user.image ?? '/default-avatar.png'}
+                  src={user.image ?? Cover}
                   alt={user.name ?? 'User'}
                   className="h-40 w-40 rounded-lg object-cover object-top md:h-14 md:w-14"
                 />
