@@ -67,7 +67,7 @@ export default function InteractiveMap() {
           </Button>
         </div>
         <div className="mb-8 overflow-hidden border bg-zinc-900 shadow-sm">
-          <div className="h-[500px]">
+          <div className="h-[800px]">
             <MapView />
           </div>
         </div>

@@ -100,7 +100,7 @@ const InteractiveMap = ({
   }, [selectedId, locations]);
 
   return (
-    <MapContainer center={center as [number, number]} zoom={13} className="z-0 h-[500px] w-full">
+    <MapContainer center={center as [number, number]} zoom={13} className="z-0 h-[800px] w-full">
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {locations.map((f) => (
         <Marker
@@ -143,7 +143,7 @@ export const MapView = () => {
           <LocationList locations={filteredLocations} selectedId={selectedId} onSelect={setSelectedId} />
         </div>
 
-        <div className="h-[500px] w-2/3 bg-zinc-800">
+        <div className="h-[800px] w-2/3 bg-zinc-800">
           <div className="w-full text-center">
             <InteractiveMap selectedId={selectedId} onSelect={setSelectedId} locations={filteredLocations} />
             {selectedLocation && <SelectedInfo location={selectedLocation} />}
