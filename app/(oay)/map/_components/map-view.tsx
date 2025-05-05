@@ -4,13 +4,13 @@ import { useMemo, useState } from 'react';
 
 import { Neighborhood } from '@/assets/mock';
 import { IconSearch } from '@tabler/icons-react';
+import { Icon } from 'leaflet';
 import { MapPin } from 'lucide-react';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 
-import { H3, P } from '@/components/ui';
-import { Badge } from '@/components/ui/badge';
+import { H3 } from '@/components/ui';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 
 type Location = (typeof Neighborhood)[number];
 
@@ -61,38 +61,6 @@ const LocationList = ({
   </div>
 );
 
-const MapPlaceholder = ({ selectedId, onSelect }: { selectedId: string | null; onSelect: (id: string) => void }) => (
-  <div className="border-border relative flex h-[300px] w-full items-center justify-center overflow-hidden rounded-lg border">
-    <div className="bg-oay-neutral-200 absolute inset-0 opacity-10" />
-    {Neighborhood.map((f) => {
-      const top = 20 + Math.random() * 60;
-      const left = 20 + Math.random() * 60;
-      return (
-        <Tooltip key={f.id}>
-          <TooltipTrigger asChild>
-            <div
-              className={`absolute h-3 w-3 transform cursor-pointer rounded-full transition-all ${
-                selectedId === f.id ? 'bg-oay-green scale-150' : 'bg-oay-blue'
-              }`}
-              style={{ top: `${top}%`, left: `${left}%` }}
-              onClick={() => onSelect(f.id)}
-            />
-          </TooltipTrigger>
-          <TooltipContent>
-            <div className="text-xs">
-              <p className="font-medium">{f.name}</p>
-              <p className="text-muted-foreground">{f.region}</p>
-            </div>
-          </TooltipContent>
-        </Tooltip>
-      );
-    })}
-    <Badge className="hover:bg-chart-2 absolute right-4 bottom-4 cursor-pointer bg-zinc-950 text-white">
-      Interactive 3D Map Coming Soon
-    </Badge>
-  </div>
-);
-
 const SelectedInfo = ({ location }: { location: Location }) => (
   <div className="bg-card mt-4 rounded-md border p-3 text-left">
     <h4 className="font-medium">{location.name}</h4>
@@ -105,6 +73,54 @@ const SelectedInfo = ({ location }: { location: Location }) => (
     </div>
   </div>
 );
+
+const markerIcon = new Icon({
+  iconUrl: 'https://cdn.pixabay.com/photo/2013/07/12/14/10/pushpin-147918_1280.png',
+  iconSize: [40, 40],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
+const InteractiveMap = ({
+  selectedId,
+  onSelect,
+  locations,
+}: {
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+  locations: Location[];
+}) => {
+  const center = useMemo(() => {
+    if (selectedId) {
+      const loc = locations.find((f) => f.id === selectedId);
+      return loc ? [loc.coordinates.latitude, loc.coordinates.longitude] : [-18.8792, 47.5079];
+    }
+    return [-18.8792, 47.5079];
+  }, [selectedId, locations]);
+
+  return (
+    <MapContainer center={center as [number, number]} zoom={13} className="z-0 h-[500px] w-full">
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      {locations.map((f) => (
+        <Marker
+          key={f.id}
+          position={[f.coordinates.latitude, f.coordinates.longitude]}
+          icon={markerIcon}
+          eventHandlers={{
+            click: () => onSelect(f.id),
+          }}
+        >
+          <Popup>
+            <strong>{f.name}</strong>
+            <br />
+            <span className="text-muted-foreground text-xs">{f.region}</span>
+          </Popup>
+        </Marker>
+      ))}
+    </MapContainer>
+  );
+};
 
 export const MapView = () => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -127,14 +143,9 @@ export const MapView = () => {
           <LocationList locations={filteredLocations} selectedId={selectedId} onSelect={setSelectedId} />
         </div>
 
-        <div className="flex h-[500px] w-full flex-col items-center justify-center bg-zinc-800 p-6 md:w-2/3">
-          <div className="text-center">
-            <H3>Interactive Map Placeholder</H3>
-            <P className="text-muted-foreground mb-4 text-sm">
-              In the full implementation, this would be an interactive 3D map using React Three Fiber showing all the
-              locations in Madagascar.
-            </P>
-            <MapPlaceholder selectedId={selectedId} onSelect={setSelectedId} />
+        <div className="h-[500px] w-2/3 bg-zinc-800">
+          <div className="w-full text-center">
+            <InteractiveMap selectedId={selectedId} onSelect={setSelectedId} locations={filteredLocations} />
             {selectedLocation && <SelectedInfo location={selectedLocation} />}
           </div>
         </div>

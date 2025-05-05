@@ -4,6 +4,8 @@ import { IconBrandGithub, IconBrandX, IconHome, IconMap, IconPlus } from '@table
 
 import { FloatingDock } from '@/components/shared';
 
+import 'leaflet/dist/leaflet.css';
+
 export default function OayLayout({ children }: { children: ReactNode }) {
   const links = [
     {
