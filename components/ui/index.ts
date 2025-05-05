@@ -10,3 +10,5 @@ export * from './avatar';
 export * from './tabs';
 export * from './typography';
 export * from './tooltip';
+export * from './dialog';
+export * from './select';

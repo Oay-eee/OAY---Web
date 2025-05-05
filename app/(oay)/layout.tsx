@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { IconBrandGithub, IconBrandX, IconHome, IconMap, IconPlus, IconUser } from '@tabler/icons-react';
+import { IconBrandGithub, IconBrandX, IconHome, IconMap, IconPlus } from '@tabler/icons-react';
 
 import { FloatingDock } from '@/components/shared';
 
