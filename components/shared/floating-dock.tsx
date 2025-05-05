@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { IconLayoutNavbarCollapse, IconLogout } from '@tabler/icons-react';
 import { AnimatePresence, motion, MotionValue, useMotionValue, useSpring, useTransform } from 'motion/react';
 
-import { LogoutButton } from '@/components/shared';
+import { LogoutButton } from '@/components/shared/index';
 
 import { cn } from '@/lib/utils';
 

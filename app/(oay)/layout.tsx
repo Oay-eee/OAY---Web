@@ -1,8 +1,8 @@
 import { ReactNode } from 'react';
 
-import { IconBrandGithub, IconBrandX, IconHome, IconPlus, IconUser } from '@tabler/icons-react';
+import { IconBrandGithub, IconBrandX, IconHome, IconMap, IconPlus, IconUser } from '@tabler/icons-react';
 
-import { FloatingDock } from '@/components/aceternity';
+import { FloatingDock } from '@/components/shared';
 
 export default function OayLayout({ children }: { children: ReactNode }) {
   const links = [
@@ -12,9 +12,9 @@ export default function OayLayout({ children }: { children: ReactNode }) {
       href: '/home',
     },
     {
-      title: 'Profile',
-      icon: <IconUser className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
-      href: '/profile',
+      title: 'Map',
+      icon: <IconMap className="h-full w-full text-neutral-500 dark:text-neutral-300" />,
+      href: '/map',
     },
     {
       title: 'Create a report',

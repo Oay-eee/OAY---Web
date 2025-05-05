@@ -14,3 +14,4 @@ export * from './verification-result';
 export * from './animated-item';
 export * from './animated-list';
 export * from './list-item';
+export * from './floating-dock';
